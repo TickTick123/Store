@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_my:                    //我的导航页
 
+                    BmobUser.logOut();   //清除缓存用户对象，既退出，
+
                     if(myfragment==null) {
                         myfragment=new My();
                     }
@@ -65,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    //        User user = BmobUser.getCurrentUser(User.class);          //测试本地缓存，有效
-    //        toast(user.getUsername());
+            User user = BmobUser.getCurrentUser(User.class);          //测试本地缓存，有效
+            toast(user.getUsername());
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

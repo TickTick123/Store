@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void done(User s, BmobException e) {
                         if(e==null){
                             toast("注册成功");
+                            finish();
                         }
                         if(e.getErrorCode()==202)
                             toast("该用户名已被占用，请输入一个新的用户名");       //异常处理1

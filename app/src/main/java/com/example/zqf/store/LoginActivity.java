@@ -1,6 +1,7 @@
 package com.example.zqf.store;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -23,9 +24,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText et_name;
     private EditText et_password;
     private CheckBox ch_remember;
-    private TextView te_forget;
-    private TextView te_register;
-    private TextView te_phone_reg;
+    private final static String SP_INFOS="login";
+    private final static String USERNAME="uname";
+    private final static String USERPASS="upass";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         et_name =(EditText) findViewById(R.id.editText_name);             //初始化
         et_password=(EditText)findViewById(R.id.editText_password);
+        ch_remember=(CheckBox)findViewById(R.id.checkBox_remember);
 
         findViewById(R.id.button_login).setOnClickListener(this);       //设置监听器
         findViewById(R.id.textView_forget).setOnClickListener(this);       //设置监听器
@@ -41,11 +43,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.textView_phonereg).setOnClickListener(this);       //设置监听器
 
     }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        checkIfRemember();
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        if(ch_remember.isChecked()) {
+            this.rememberMe(et_name.getText().toString(),et_password.getText().toString());
+        }
+    }
+
+    public void rememberMe(String uname,String upass) {
+        SharedPreferences sp=getSharedPreferences(SP_INFOS,MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString(USERNAME,uname);
+        editor.putString(USERPASS,upass);
+        editor.commit();
+    }
+    public void checkIfRemember(){
+        SharedPreferences sp=getSharedPreferences(SP_INFOS,MODE_PRIVATE);
+        String username =sp.getString(USERNAME,null);
+        String userpass =sp.getString(USERPASS,null);
+        if(username!=null&&userpass!=null){
+            et_name.setText(username);
+            et_password.setText(userpass);
+            ch_remember.setChecked(true);
+        }
+    }
+
+
 
     @Override
     public void onClick(View view){
-        if(view.getId()==R.id.button_login){            //登录按钮
 
+        if(view.getId()==R.id.button_login){            //登录按钮
             User bu = new User();                   //  bmob登录
             bu.loginByAccount(et_name.getText().toString(),et_password.getText().toString(),   //用户名登录
                     new LogInListener<User>() {

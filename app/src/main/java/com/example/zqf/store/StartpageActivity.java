@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.example.zqf.store.Bean.User;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -25,9 +26,19 @@ public class StartpageActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {                     //Intent跳转
-                Intent mainIntent=new Intent(StartpageActivity.this,LoginActivity.class);
-                startActivity(mainIntent);
-                finish();
+
+                User user = BmobUser.getCurrentUser(User.class);        //有本地缓存就直接登陆
+                if(user != null){
+                    Intent mainIntent=new Intent(StartpageActivity.this,MainActivity.class);
+                    startActivity(mainIntent);
+                    finish();
+                }else{
+                    Intent mainIntent=new Intent(StartpageActivity.this,LoginActivity.class);
+                    startActivity(mainIntent);
+                    finish();
+                }
+
+
             }
         },3000);
 
