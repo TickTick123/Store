@@ -21,21 +21,6 @@ public class StartpageActivity extends Activity {
 
         Bmob.initialize(this, "14ad818ac5ca96d7f6166b841450afee");      //云数据库连接
 
-//        User p2 = new User();
-//        p2.setUsername("timirdds");
-//        p2.setPassword("xxxxxsdsd23");
-//        //p2.setRewardpoint("100");
-//
-//        p2.signUp(new SaveListener<User>() {
-//            @Override
-//            public void done(User s,BmobException e) {
-//                if(e==null){
-//                    toast("添加数据成功:"+s.toString());
-//                }else{
-//                    toast("创建数据失败：" + e.getMessage());
-//                }
-//            }
-//        });
 
         new Handler().postDelayed(new Runnable() {
             @Override

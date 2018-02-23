@@ -7,9 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.zqf.store.Bean.User;
 import com.example.zqf.store.Fragment.Home;
 import com.example.zqf.store.Fragment.My;
+
+import cn.bmob.v3.BmobUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,11 +65,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+    //        User user = BmobUser.getCurrentUser(User.class);          //测试本地缓存，有效
+    //        toast(user.getUsername());
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         setDefaultFragment();          //设置初始fragment
     }
+
     private void setDefaultFragment() {
         FragmentManager fm =getFragmentManager();
         FragmentTransaction transaction=fm.beginTransaction();
@@ -73,5 +81,9 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.content,homefragment);
         transaction.commit();
     }
+
+    public void toast(String toast) {           //Toast便捷使用方法
+        Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
+    };
 
 }
