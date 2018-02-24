@@ -13,6 +13,10 @@
     <string name="button_5">跳蚤市场</string>
     <string name="button_6">潮牌代购</string>
     <string name="button_7">便捷租赁</string>
+    <string name="button_8">"               "地址</string>
+    <string name="button_9">"               "收藏</string>
+    <string name="button_10">"               "客服</string>
+    <string name="button_11">"               "设置</string>
 
     <string name="login_1">用户名/手机号</string>
     <string name="login_2">请输入密码</string>
@@ -29,6 +33,7 @@
     <string name="phone_forget_1">请输入新密码</string>
     <string name="phone_forget_2">重置密码</string>
 
+    <string name="my_welcome">欢迎您！</string>
 
 
 </resources>
