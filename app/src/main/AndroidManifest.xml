@@ -23,7 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".StartpageActivity">
+        <activity 
+            android:name=".StartpageActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,23 +36,28 @@
         <activity
             android:label="@string/app_name"
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true" 
+            android:screenOrientation="portrait"/>
         <activity
             android:label="@string/login"
             android:name=".LoginActivity"
-            android:exported="true" />
+            android:exported="true" 
+            android:screenOrientation="portrait"/>
         <activity
             android:label="@string/login_5"
             android:name=".RegisterActivity"
-            android:exported="true" />
+            android:exported="true" 
+            android:screenOrientation="portrait"/>
         <activity
             android:label="@string/login_6"
             android:name=".PhoneRegisterActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:label="@string/login_4"
             android:name=".ForgetPasswordActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:screenOrientation="portrait"/>
 
     </application>
 
