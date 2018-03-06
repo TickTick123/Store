@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.zqf.store.Bean.User;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -18,6 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText name;
     private EditText password;
     private Button regButton;
+    BmobFile bmobfile =new BmobFile("head.jpg","","http://bmob-cdn-17080.b0.upaiyun.com/2018/03/06/3d413e4bbfd848aeb536e40839106872.jpg");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
                 User bu = new User();                   //  bmob注册
                 bu.setUsername(name.getText().toString());
                 bu.setPassword(password.getText().toString());
+                bu.setPicUser(bmobfile);
                 bu.signUp(new SaveListener<User>() {
                     @Override
                     public void done(User s, BmobException e) {
@@ -49,7 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
                             toast("用户名和密码不能为空");                    //异常处理2
                     }
                 });
-
             }
         });
 
@@ -58,5 +60,5 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
-    };
+    }
 }

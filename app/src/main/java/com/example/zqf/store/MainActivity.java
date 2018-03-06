@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     Home homefragment;                 //首页fragment
     My myfragment;                     //我的fragment
+    User user = BmobUser.getCurrentUser(User.class);
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     BmobUser.logOut();   //清除缓存用户对象，既退出，
 
                     if(myfragment==null) {
-                        myfragment=new My();
+                        myfragment=new My(user.getObjectId());
                     }
                     transaction.replace(R.id.content,myfragment);
                     transaction.commit();
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-            User user = BmobUser.getCurrentUser(User.class);          //测试本地缓存，有效
+            //User user = BmobUser.getCurrentUser(User.class);          //测试本地缓存，有效
             toast(user.getUsername());
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

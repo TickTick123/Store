@@ -1,10 +1,12 @@
 package com.example.zqf.store.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,14 +14,27 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.zqf.store.Bean.User;
 import com.example.zqf.store.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.DownloadFileListener;
+import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.UploadFileListener;
+
 
 import static android.app.Activity.RESULT_OK;
 import static cn.bmob.v3.Bmob.getApplicationContext;
@@ -29,16 +44,76 @@ import static cn.bmob.v3.Bmob.getApplicationContext;
  */
 
 public class My extends Fragment{
+    User user0= BmobUser.getCurrentUser(User.class);
     ImageView ivHead;//头像显示
     Bitmap head;//头像Bitmap
     AlertDialog.Builder builder;//AlertDialog构造器
-    AlertDialog.Builder builder2;
-    static String path = " Environment.getExternalStorageDirectory().getPath()";//sd路径
+    Button but8,but9,but10,but11;
+    TextView Text,Text2;
+    String n;
+    String path;//头像文件路径
+    static String path0="/data/user/0/com.example.zqf.store/cache/bmob/head.jpg";
+
     public My (){}
+    @SuppressLint("ValidFragment")//为了重写fragment构造方法的注释
+    public My(String x){
+        super();
+        this.n=x;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_my, container, false);
         ivHead=view.findViewById(R.id.imageView4);
+
+        Text=view.findViewById(R.id.textView);
+        Text.setText(n);
+        Text2=view.findViewById(R.id.textView2);
+        Text2.setText(n);
+
+        but8=view.findViewById(R.id.button8);
+        but9=view.findViewById(R.id.button9);
+        but10=view.findViewById(R.id.button10);
+        but11=view.findViewById(R.id.button11);
+        but8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        but9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        but10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        but11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        //若本地没有头像从数据库下载头像保存到本地
+        BmobQuery<User> query = new BmobQuery<>();
+        query.getObject(n, new QueryListener<User>() {
+            @Override
+            public void done(User user, BmobException e) {
+                if (e == null) {
+                    download(user.getPicUser());
+                }
+            }
+        });
+
+        Bitmap bt=BitmapFactory.decodeFile(path);
+        ivHead.setImageBitmap(bt);
+
         ivHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,17 +134,7 @@ public class My extends Fragment{
                                 intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"head.jpg")));//指明存储图片或视频的地址URI  
                                 startActivityForResult(intent2,2);//采用ForResult打开  
                             } catch (Exception e) {
-                                builder2=new AlertDialog.Builder(getActivity());
-                                builder2.setMessage("相机无法启动，请先开启相机权限");
-                                builder2.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i){
-
-                                    }
-                                });
-                                builder2.setCancelable(false);
-                                AlertDialog dialog2=builder2.create();
-                                dialog2.show();
+                                Toast.makeText(getApplicationContext(),"相机无法启动，请先开启相机权限", Toast.LENGTH_LONG).show();
                             }
                         }
                     }
@@ -80,6 +145,23 @@ public class My extends Fragment{
             }
         });
         return view;
+    }
+
+    private void download(BmobFile picUser) {
+        picUser.download(new DownloadFileListener() {
+            @Override
+            public void done(String s, BmobException e) {
+                if(e==null){
+                    //Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
+                    path=s;
+                }
+            }
+
+            @Override
+            public void onProgress(Integer integer, long l) {
+
+            }
+        });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -103,11 +185,32 @@ public class My extends Fragment{
                     Bundle extras = data.getExtras();
                     head = extras.getParcelable("data");
                     if (head != null) {
-                        /**  
-                        * 上传服务器代码  
-                        */
-                        setPicToView(head);//保存在SD卡中  
-                        ivHead.setImageBitmap(head);//用ImageView显示出来  
+                        // 上传服务器代码
+                        saveBitmap(head);
+                        final BmobFile bmobFile = new BmobFile(new File(path0));
+                        bmobFile.uploadblock(new UploadFileListener() {
+                            @Override
+                            public void done(BmobException e) {
+                                if(e==null) {
+                                    //Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_LONG).show();
+                                    /*user0.setPicUser(bmobFile);
+                                    user0.updateObservable().subscribe(new Action1<Void>() {
+                                        @Override
+                                        public void call(Void aVoid) {
+                                            Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_LONG).show();
+                                        }
+                                    },new Action1<Throwable>(){
+                                        @Override
+                                        public void call(Throwable throwable) {
+                                            Toast.makeText(getApplicationContext(), "上传失败", Toast.LENGTH_LONG).show();
+                                        }
+                                    });*/
+                                }
+                                else
+                                    Toast.makeText(getApplicationContext(),"上传失败", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        ivHead.setImageBitmap(head);//用ImageView显示出来
                     }
                 }
                 break;
@@ -117,7 +220,7 @@ public class My extends Fragment{
         super.onActivityResult(requestCode,resultCode,data);
     }
 
-    public void cropPhoto(Uri uri) {
+    public void cropPhoto(Uri uri) {          //调用系统的裁剪功能
         Intent intent = new Intent("com.android.camera.action.CROP");
         //找到指定URI对应的资源图片  
         intent.setDataAndType(uri,"image/*");
@@ -126,36 +229,29 @@ public class My extends Fragment{
         intent.putExtra("aspectX",1);
         intent.putExtra("aspectY",1);
         // outputX outputY 是裁剪图片宽高  
-        intent.putExtra("outputX",80);
-        intent.putExtra("outputY",80);
+        intent.putExtra("outputX",150);
+        intent.putExtra("outputY",150);
         intent.putExtra("return-data",true);
         //进入系统裁剪图片的界面  
         startActivityForResult(intent,3);
     }
 
-    private void setPicToView(Bitmap mBitmap) {
-        String sdStatus = Environment.getExternalStorageState();
-        if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd卡是否可用  
-            return;
+    public void saveBitmap(Bitmap bm) {//bitmap保存到本地路径
+        File f = new File(path0);
+        if (f.exists()) {
+            f.delete();
         }
-        FileOutputStream b = null;
-        File file = new File(path);
-        file.mkdirs();// 创建以此File对象为名（path）的文件夹  
-        String fileName = path + "head.jpg";//图片名字
         try {
-            b = new FileOutputStream(fileName);
-            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100,b);// 把数据写入文件（compress：压缩）
+            FileOutputStream out = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+            out.close();
         } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        } finally {
-            try {
-                //关闭流  
-                b.flush();
-                b.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
-
 }

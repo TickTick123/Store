@@ -16,9 +16,14 @@ public class User extends BmobUser{
     // private String password;
     // private String mobilePhoneNumber  手机号（可用于登录）
     // private String email;手机号（可用于登录）
+    private String nicName;             //昵称
     private List<String> address;           //收货地址
     private String state; 		     // 状态
     private BmobFile picUser; 	// 头像
+
+    public String getnicName() {return nicName;}
+
+    public void setNicName(String nicName) { this.nicName = nicName; }
 
     public List<String> getAddress() {
         return address;
@@ -36,9 +41,7 @@ public class User extends BmobUser{
         this.state = state;
     }
 
-    public BmobFile getPicUser() {
-        return picUser;
-    }
+    public BmobFile getPicUser() { return picUser; }
 
     public void setPicUser(BmobFile picUser) {
         this.picUser = picUser;
