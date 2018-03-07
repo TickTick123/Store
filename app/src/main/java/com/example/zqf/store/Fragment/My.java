@@ -2,7 +2,7 @@ package com.example.zqf.store.Fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Fragment;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UploadFileListener;
+import rx.functions.Action1;
 
 
 import static android.app.Activity.RESULT_OK;
@@ -43,33 +45,30 @@ import static cn.bmob.v3.Bmob.getApplicationContext;
  * Created by admin on 2018/2/12.
  */
 
-public class My extends Fragment{
-    User user0= BmobUser.getCurrentUser(User.class);
+public class My extends Fragment {
+
     ImageView ivHead;//头像显示
     Bitmap head;//头像Bitmap
     AlertDialog.Builder builder;//AlertDialog构造器
+    User user;
     Button but8,but9,but10,but11;
     TextView Text,Text2;
-    String n;
     String path;//头像文件路径
     static String path0="/data/user/0/com.example.zqf.store/cache/bmob/head.jpg";
 
     public My (){}
-    @SuppressLint("ValidFragment")//为了重写fragment构造方法的注释
-    public My(String x){
-        super();
-        this.n=x;
-    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_my, container, false);
+
+        user = BmobUser.getCurrentUser(User.class);
         ivHead=view.findViewById(R.id.imageView4);
 
         Text=view.findViewById(R.id.textView);
-        Text.setText(n);
+        Text.setText(user.getObjectId());
         Text2=view.findViewById(R.id.textView2);
-        Text2.setText(n);
+        Text2.setText(user.getUsername());
 
         but8=view.findViewById(R.id.button8);
         but9=view.findViewById(R.id.button9);
@@ -101,17 +100,20 @@ public class My extends Fragment{
         });
 
         //若本地没有头像从数据库下载头像保存到本地
-        BmobQuery<User> query = new BmobQuery<>();
-        query.getObject(n, new QueryListener<User>() {
-            @Override
-            public void done(User user, BmobException e) {
-                if (e == null) {
-                    download(user.getPicUser());
+        File F=new File(path0);
+        if(!F.exists()) {
+            BmobQuery<User> query = new BmobQuery<>();
+            query.getObject(user.getObjectId(), new QueryListener<User>() {
+                @Override
+                public void done(User user, BmobException e) {
+                    if (e == null) {
+                        download(user.getPicUser());
+                    }
                 }
-            }
-        });
+            });
+        }
 
-        Bitmap bt=BitmapFactory.decodeFile(path);
+        Bitmap bt=BitmapFactory.decodeFile(path0);
         ivHead.setImageBitmap(bt);
 
         ivHead.setOnClickListener(new View.OnClickListener() {
@@ -193,18 +195,18 @@ public class My extends Fragment{
                             public void done(BmobException e) {
                                 if(e==null) {
                                     //Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_LONG).show();
-                                    /*user0.setPicUser(bmobFile);
-                                    user0.updateObservable().subscribe(new Action1<Void>() {
+                                    user.setPicUser(bmobFile);
+                                    user.updateObservable().subscribe(new Action1<Void>() {
                                         @Override
                                         public void call(Void aVoid) {
-                                            Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_LONG).show();
+                                            //Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_LONG).show();
                                         }
                                     },new Action1<Throwable>(){
                                         @Override
                                         public void call(Throwable throwable) {
                                             Toast.makeText(getApplicationContext(), "上传失败", Toast.LENGTH_LONG).show();
                                         }
-                                    });*/
+                                    });
                                 }
                                 else
                                     Toast.makeText(getApplicationContext(),"上传失败", Toast.LENGTH_LONG).show();
@@ -254,4 +256,9 @@ public class My extends Fragment{
             e.printStackTrace();
         }
     }
+
+    public void toast(String toast) {           //Toast便捷使用方法
+        Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
+    }
+
 }
