@@ -194,7 +194,6 @@ public class My extends Fragment {
                             @Override
                             public void done(BmobException e) {
                                 if(e==null) {
-                                    //Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_LONG).show();
                                     user.setPicUser(bmobFile);
                                     user.updateObservable().subscribe(new Action1<Void>() {
                                         @Override
