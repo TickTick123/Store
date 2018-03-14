@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Store</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_home">首页</string>
     <string name="title_discover">发现</string>
     <string name="title_order">订单</string>
@@ -34,6 +33,13 @@
     <string name="phone_forget_2">重置密码</string>
 
     <string name="my_welcome">欢迎您！</string>
+    <string name="my_setting_back">退出登录</string>
+    <string name="my_setting_yes">确认修改</string>
+    <string name="my_setting_help">关于与帮助</string>
+    <string name="my_setting_skin">皮肤更换</string>
+    <string name="my_setting_nic">昵称</string>
+    <string name="my_setting_sex">性别</string>
+    <string name="my_setting_phone">手机</string>
 
 
 </resources>

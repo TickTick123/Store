@@ -53,16 +53,12 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        //setDefaultFragment();          //设置初始fragment
+        setDefaultFragment();          //设置初始fragment
     }
 
-//    private void setDefaultFragment() {
-//        FragmentManager fm =getFragmentManager();
-//        FragmentTransaction transaction=fm.beginTransaction();
-//        homefragment=new Home();
-//        transaction.replace(R.id.content,homefragment);
-//        transaction.commit();
-//    }
+    private void setDefaultFragment() {
+        replaceFragment(new Home());
+    }
 
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();

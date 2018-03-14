@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import com.example.zqf.store.Bean.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
@@ -19,7 +22,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText name;
     private EditText password;
     private Button regButton;
-    BmobFile bmobfile =new BmobFile("head.jpg","","http://bmob-cdn-17080.b0.upaiyun.com/2018/03/06/3d413e4bbfd848aeb536e40839106872.jpg");
+    private BmobFile bmobfile =new BmobFile("head.jpg","","http://bmob-cdn-17080.b0.upaiyun.com/2018/03/06/3d413e4bbfd848aeb536e40839106872.jpg");
+    private List<String> ad=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +38,13 @@ public class RegisterActivity extends AppCompatActivity {
         regButton.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v){                        //注册按钮相应
-
                 User bu = new User();                   //  bmob注册
                 bu.setUsername(name.getText().toString());
                 bu.setPassword(password.getText().toString());
                 bu.setPicUser(bmobfile);
+                bu.setNicName("请输入昵称");
+                bu.setSex("待定。。。");
+                bu.setAddress(ad);
                 bu.signUp(new SaveListener<User>() {
                     @Override
                     public void done(User s, BmobException e) {

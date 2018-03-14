@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.DrawableRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zqf.store.Activity_My.AddressActivity;
+import com.example.zqf.store.Activity_My.SettingActivity;
 import com.example.zqf.store.Bean.User;
+import com.example.zqf.store.MainActivity;
 import com.example.zqf.store.R;
 
 import java.io.File;
@@ -66,9 +70,9 @@ public class My extends Fragment {
         ivHead=view.findViewById(R.id.imageView4);
 
         Text=view.findViewById(R.id.textView);
-        Text.setText(user.getObjectId());
+        Text.setText(user.getMobilePhoneNumber());
         Text2=view.findViewById(R.id.textView2);
-        Text2.setText(user.getUsername());
+        Text2.setText(user.getnicName());
 
         but8=view.findViewById(R.id.button8);
         but9=view.findViewById(R.id.button9);
@@ -77,7 +81,8 @@ public class My extends Fragment {
         but8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent address =new Intent(getApplicationContext(), AddressActivity.class);
+                startActivity(address);
             }
         });
         but9.setOnClickListener(new View.OnClickListener() {
@@ -89,13 +94,17 @@ public class My extends Fragment {
         but10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                new android.support.v7.app.AlertDialog.Builder(getActivity()).setTitle("客服电话")
+                        .setIcon(android.R.drawable.ic_menu_call).
+                        setItems(new String[] { "17352709806", "电话2" },null)
+                        .show();
             }
         });
         but11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent setting =new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(setting);
             }
         });
 

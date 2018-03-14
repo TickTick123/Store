@@ -2,6 +2,8 @@ package com.example.zqf.store.Fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -23,12 +25,21 @@ public class Home extends Fragment {
     HomePageAdapter mAdapter;
     ArrayList<View> aList;
     ViewPager vpager_one;
+    Handler adHandler;
+
 
     public Home (){}
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_home, container, false);
         vpager_one = view.findViewById(R.id.mPager);
+        adHandler=new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                vpager_one.setCurrentItem(msg.arg1);
+            }
+        };
+
 
         aList = new ArrayList<View>();
         aList.add(inflater.inflate(R.layout.view_one,null,false));
@@ -36,6 +47,22 @@ public class Home extends Fragment {
         aList.add(inflater.inflate(R.layout.view_three,null,false));
         mAdapter = new HomePageAdapter(aList);
         vpager_one.setAdapter(mAdapter);
+        vpager_one.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         but1=view.findViewById(R.id.button);
         but2=view.findViewById(R.id.button2);

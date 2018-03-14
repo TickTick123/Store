@@ -1,5 +1,6 @@
 package com.example.zqf.store.Bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
@@ -17,11 +18,16 @@ public class User extends BmobUser{
     // private String mobilePhoneNumber  手机号（可用于登录）
     // private String email;手机号（可用于登录）
     private String nicName;             //昵称
-    private List<String> address;           //收货地址
+    private List<String> address=new ArrayList<>();           //收货地址
     private String state; 		     // 状态
     private BmobFile picUser; 	// 头像
+    private String sex;          //性别
 
-    public String getnicName() {return nicName;}
+    public String getSex() { return sex; }
+
+    public void setSex(String sex) { this.sex = sex;  }
+
+    public String getnicName() { return nicName; }
 
     public void setNicName(String nicName) { this.nicName = nicName; }
 
@@ -29,17 +35,13 @@ public class User extends BmobUser{
         return address;
     }
 
-    public void setAddress(List<String> address) {
-        this.address = address;
-    }
+    public void setAddress(List<String> address) { this.address = address; }
 
     public String getState() {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
+    public void setState(String state) { this.state = state; }
 
     public BmobFile getPicUser() { return picUser; }
 
