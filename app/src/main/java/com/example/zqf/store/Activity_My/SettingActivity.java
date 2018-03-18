@@ -1,5 +1,6 @@
 package com.example.zqf.store.Activity_My;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+
         user = BmobUser.getCurrentUser(User.class);
         ed1=findViewById(R.id.editText);
         ed2=findViewById(R.id.editText2);
@@ -54,6 +56,7 @@ public class SettingActivity extends AppCompatActivity {
                 BmobUser.logOut();
                 Intent mainIntent=new Intent(SettingActivity.this,LoginActivity.class);
                 startActivity(mainIntent);
+                MainActivity.mActivity.finish();                    //退出任意activity
                 finish();
             }
         });

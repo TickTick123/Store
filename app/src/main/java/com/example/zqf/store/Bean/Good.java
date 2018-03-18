@@ -12,6 +12,7 @@ public class Good extends BmobObject{
     private String price;  //商品价格
     private String describe;  //商品描述
     private String PicGood;  //商品主图
+    private int number;       //商品数量
     private String masterneme;  //商品所属用户姓名(个人商品发布时使用)
     private String masterphone;  //商品所属用户手机号(个人商品发布时使用)
     private String masterQQ;  //商品所属用户QQ(个人商品发布时使用)

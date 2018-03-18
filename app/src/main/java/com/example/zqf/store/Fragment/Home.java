@@ -2,6 +2,7 @@ package com.example.zqf.store.Fragment;
 
 
 import android.os.Bundle;
+
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -23,28 +24,29 @@ import java.util.ArrayList;
 public class Home extends Fragment {
     Button but1,but2,but3,but4,but5,but6,but7;
     HomePageAdapter mAdapter;
-    ArrayList<View> aList;
-    ViewPager vpager_one;
-    Handler adHandler;
-
+    ArrayList<View> aList;   //图片数组
+    ViewPager vpager_one;    //装载图片容器
+    int currentImgIndex;     //记录当前图片位置
 
     public Home (){}
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_home, container, false);
         vpager_one = view.findViewById(R.id.mPager);
-        adHandler=new Handler(){
+        final Handler adHandler=new Handler(){
             @Override
-            public void handleMessage(Message msg){
+            public void handleMessage(Message msg) {
                 vpager_one.setCurrentItem(msg.arg1);
             }
         };
 
-
         aList = new ArrayList<View>();
+        aList.add(inflater.inflate(R.layout.view_three,null,false));
         aList.add(inflater.inflate(R.layout.view_one,null,false));
         aList.add(inflater.inflate(R.layout.view_two,null,false));
         aList.add(inflater.inflate(R.layout.view_three,null,false));
+        aList.add(inflater.inflate(R.layout.view_one,null,false));
+
         mAdapter = new HomePageAdapter(aList);
         vpager_one.setAdapter(mAdapter);
         vpager_one.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -55,7 +57,14 @@ public class Home extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-
+                currentImgIndex=position;
+                if ( position < 1) { //首位之前，跳转到末尾（N）  
+                    position = 3;
+                    vpager_one.setCurrentItem(position,false);
+                } else if ( position > 3) { //末位之后，跳转到首位（1）  
+                    vpager_one.setCurrentItem(1,false); //false:不显示跳转过程的动画  
+                    position = 1;
+                }
             }
 
             @Override
@@ -63,6 +72,19 @@ public class Home extends Fragment {
 
             }
         });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    Message message=Message.obtain();
+                    message.arg1=currentImgIndex;
+                    adHandler.sendMessage(message);
+                    sleep();
+                }
+            }
+        }).start();
+
 
         but1=view.findViewById(R.id.button);
         but2=view.findViewById(R.id.button2);
@@ -114,5 +136,14 @@ public class Home extends Fragment {
             }
         });
         return view;
+    }
+
+    private void sleep(){
+        currentImgIndex=currentImgIndex+1;
+        try{
+            Thread.sleep(2000);
+        }catch(InterruptedException e){
+
+        }
     }
 }
