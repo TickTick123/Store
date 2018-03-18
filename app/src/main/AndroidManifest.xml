@@ -74,7 +74,7 @@
             android:exported="true"
             android:label="收货地址"
             android:screenOrientation="portrait" />
-
+        <activity android:name=".Activity_Home.MarketActivity"></activity>
     </application>
 
 </manifest>

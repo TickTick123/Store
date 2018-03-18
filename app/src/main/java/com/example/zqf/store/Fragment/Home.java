@@ -1,6 +1,7 @@
 package com.example.zqf.store.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,10 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.zqf.store.Activity_Home.MarketActivity;
+import com.example.zqf.store.Activity_My.SettingActivity;
 import com.example.zqf.store.Adapter.HomePageAdapter;
 import com.example.zqf.store.R;
 
 import java.util.ArrayList;
+
+import static cn.bmob.v3.Bmob.getApplicationContext;
 
 /**
  * Created by admin on 2018/2/12.
@@ -71,10 +76,11 @@ public class Home extends Fragment {
         but5=view.findViewById(R.id.button5);
         but6=view.findViewById(R.id.button6);
         but7=view.findViewById(R.id.button7);
-        but1.setOnClickListener(new View.OnClickListener() {
+        but1.setOnClickListener(new View.OnClickListener() {            //零食
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(getActivity(), MarketActivity.class);
+                startActivity(intent);
             }
         });
         but2.setOnClickListener(new View.OnClickListener() {
