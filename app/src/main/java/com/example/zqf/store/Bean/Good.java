@@ -1,21 +1,25 @@
 package com.example.zqf.store.Bean;
 
+import java.io.Serializable;
+
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Created by zqf on 2018/2/9.
  */
 
-public class Good extends BmobObject{
+public class Good extends BmobObject implements Serializable {
     private String name;  //商品名称
     private String type;  //商品类型
-    private String price;  //商品价格
+    private Float price;  //商品价格
     private String describe;  //商品描述
-    private String PicGood;  //商品主图
-    private int number;       //商品数量
+    private BmobFile PicGood;  //商品主图
+    private Integer number;       //数量
     private String masterneme;  //商品所属用户姓名(个人商品发布时使用)
     private String masterphone;  //商品所属用户手机号(个人商品发布时使用)
     private String masterQQ;  //商品所属用户QQ(个人商品发布时使用)
+
 
     public String getName() {
         return name;
@@ -33,11 +37,11 @@ public class Good extends BmobObject{
         this.type = type;
     }
 
-    public String getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -49,12 +53,20 @@ public class Good extends BmobObject{
         this.describe = describe;
     }
 
-    public String getPicGood() {
+    public BmobFile getPicGood() {
         return PicGood;
     }
 
-    public void setPicGood(String picGood) {
+    public void setPicGood(BmobFile picGood) {
         PicGood = picGood;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public String getMasterneme() {

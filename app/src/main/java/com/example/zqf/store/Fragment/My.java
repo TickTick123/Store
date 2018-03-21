@@ -97,7 +97,16 @@ public class My extends Fragment {
             public void onClick(View view) {
                 new android.support.v7.app.AlertDialog.Builder(getActivity()).setTitle("客服电话")
                         .setIcon(android.R.drawable.ic_menu_call).
-                        setItems(new String[] { "17352709806", "电话2" },null)
+                        setItems(new String[]{"17352709806", "电话2"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if(i==0){
+                                    Intent intent=new Intent(Intent.ACTION_DIAL);
+                                    intent.setData(Uri.parse("tel:17352709806"));
+                                    startActivity(intent);
+                                }
+                            }
+                        })
                         .show();
             }
         });
@@ -123,7 +132,7 @@ public class My extends Fragment {
             });
         }
 
-        Bitmap bt=BitmapFactory.decodeFile(path0);
+        Bitmap bt=BitmapFactory.decodeFile(path0);//显示头像
         ivHead.setImageBitmap(bt);
 
         ivHead.setOnClickListener(new View.OnClickListener() {

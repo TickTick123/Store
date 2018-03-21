@@ -75,6 +75,9 @@
             android:label="收货地址"
             android:screenOrientation="portrait" />
         <activity android:name=".SumActivity"></activity>
+        <activity android:name=".Activity_Home.MarketActivity"></activity>
+        <activity android:name=".OrderActivity"></activity>
+
     </application>
 
 </manifest>

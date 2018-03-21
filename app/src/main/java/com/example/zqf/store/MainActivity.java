@@ -1,8 +1,6 @@
 package com.example.zqf.store;
 
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.zqf.store.Activity_Home.MarketActivity;
 import com.example.zqf.store.Bean.User;
 import com.example.zqf.store.Fragment.Dingdan;
 import com.example.zqf.store.Fragment.Home;
@@ -21,7 +20,6 @@ import cn.bmob.v3.BmobUser;
 public class MainActivity extends AppCompatActivity {
     User user = BmobUser.getCurrentUser(User.class);
     public static MainActivity mActivity;
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

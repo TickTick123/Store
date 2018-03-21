@@ -1,69 +1,46 @@
 package com.example.zqf.store.Bean;
 
+import java.io.Serializable;
+import java.util.List;
+
 import cn.bmob.v3.BmobObject;
 
 /**
  * Created by zqf on 2018/2/9.
  */
 
-public class Order extends BmobObject {
-    private String goodID;   //商品ID
-    private String goodName;   //商品名称
-    private String goodPrice;   //商品价格
-    private String userID;   //用户ID
-    private String userName;   //用户名
-    private String count;   //数量
+public class Order extends BmobObject implements Serializable {
+    private List<Good> goods;   //商品集合
+    private User user;   //购买者
     private String address;   //收货地址
-    private String state;   //订单状态
-    private String tips;   //附加信息
+    private String state;   //订单状态（配送中，待评价，已完成）
+    private String tips;   //备注
     private String evaluate;   //评价
+    private Integer from;   //0:超市，1：数码，2：快递，3：打印，4：租赁
+    private Float sum;//总价
 
-    public String getGoodID() {
-        return goodID;
+    public Float getSum() {
+        return sum;
     }
 
-    public void setGoodID(String goodID) {
-        this.goodID = goodID;
+    public void setSum(Float sum) {
+        this.sum = sum;
     }
 
-    public String getGoodName() {
-        return goodName;
+    public List<Good> getGoods() {
+        return goods;
     }
 
-    public void setGoodName(String goodName) {
-        this.goodName = goodName;
+    public void setGoods(List<Good> goods) {
+        this.goods = goods;
     }
 
-    public String getGoodPrice() {
-        return goodPrice;
+    public User getUser() {
+        return user;
     }
 
-    public void setGoodPrice(String goodPrice) {
-        this.goodPrice = goodPrice;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getCount() {
-        return count;
-    }
-
-    public void setCount(String count) {
-        this.count = count;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getAddress() {
@@ -96,5 +73,13 @@ public class Order extends BmobObject {
 
     public void setEvaluate(String evaluate) {
         this.evaluate = evaluate;
+    }
+
+    public Integer getFrom() {
+        return from;
+    }
+
+    public void setFrom(Integer from) {
+        this.from = from;
     }
 }
