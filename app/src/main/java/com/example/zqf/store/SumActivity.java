@@ -126,7 +126,7 @@ public class SumActivity extends AppCompatActivity {
                             .setIcon(android.R.drawable.ic_dialog_info).setMessage("请选择地址！")
                             .setPositiveButton("确定", null).show();
                 }else{
-                    MarketActivity.A.finish();
+                    //MarketActivity.A.finish();        //不彻底
                     order.setFrom(0);
                     order.setGoods(goodlist);
                     order.setUser(user);

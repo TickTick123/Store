@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.zqf.store.Activity_Home.DigitalActivity;
+import com.example.zqf.store.Activity_Home.LeaseActivity;
 import com.example.zqf.store.Activity_Home.MarketActivity;
 import com.example.zqf.store.Activity_My.SettingActivity;
 import com.example.zqf.store.Adapter.HomePageAdapter;
@@ -108,7 +110,8 @@ public class Home extends Fragment {
         but2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(getActivity(), DigitalActivity.class);
+                startActivity(intent);
             }
         });
         but3.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +141,8 @@ public class Home extends Fragment {
         but7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(getActivity(),LeaseActivity.class);
+                startActivity(intent);
             }
         });
         return view;
