@@ -45,6 +45,7 @@ public class MarketActivity extends DigitalActivity {
 
     @Override
     public void getData(){
+        from=0;
         goodsdata=new String[6];        //左侧分类
         goodsdata[0]="汽水饮料";
         goodsdata[1]="休闲零食";

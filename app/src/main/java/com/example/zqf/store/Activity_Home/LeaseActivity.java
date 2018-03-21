@@ -15,6 +15,7 @@ public class LeaseActivity extends DigitalActivity {
 
     @Override
     public void getData(){
+        from=6;
         goodsdata=new String[2];        //左侧分类
         goodsdata[0]="西装";
         goodsdata[1]="电动车";

@@ -44,17 +44,7 @@ public class OrderActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         order=(Order)intent.getSerializableExtra("order");
-        order.save(new SaveListener<String>() {
-            @Override
-            public void done(String objectId,BmobException e) {
-                if(e==null){
-                    objectid=objectId;
-                }else{
-                    toast("创建数据失败：" + e.getMessage());
-                }
-            }
-
-        });
+        objectid=intent.getStringExtra("obj");
 
         tx16=findViewById(R.id.textView16);
         tx17=findViewById(R.id.textView17);
@@ -107,11 +97,11 @@ public class OrderActivity extends AppCompatActivity {
         super.onDestroy();
         order.setEvaluate(tx16.getText().toString());//评价
         order.setState(tx24.getText().toString());//状态
-        order.update(objectid,new UpdateListener() {
+        order.update(objectid ,new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if(e==null){
-                    toast("更新成功:");
+
                 }else{
                     toast("更新失败：" + e.getMessage());
                 }

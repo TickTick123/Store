@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 import static android.graphics.Color.GRAY;
 import static android.graphics.Color.GREEN;
@@ -35,6 +37,8 @@ public class SumActivity extends AppCompatActivity {
     List<Good> goodlist=new ArrayList<>();
     Order order=new Order();
     float sum;
+    int from;
+    String obj;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,7 @@ public class SumActivity extends AppCompatActivity {
         Intent intent=getIntent();
         goodlist= (List<Good>) intent.getSerializableExtra("key");//接收商品表
         sum=intent.getFloatExtra("sum",-1f);//接收总价
+        from=intent.getIntExtra("from",-1);
 
         tx6=findViewById(R.id.textView6);
         tx6.setTextColor(WHITE);
@@ -126,8 +131,7 @@ public class SumActivity extends AppCompatActivity {
                             .setIcon(android.R.drawable.ic_dialog_info).setMessage("请选择地址！")
                             .setPositiveButton("确定", null).show();
                 }else{
-                    //MarketActivity.A.finish();        //不彻底
-                    order.setFrom(0);
+                    order.setFrom(from);
                     order.setGoods(goodlist);
                     order.setUser(user);
                     order.setSum(sum);
@@ -135,10 +139,21 @@ public class SumActivity extends AppCompatActivity {
                     order.setState("配送中");//状态
                     order.setTips(tx13.getText().toString());
 
-                    Intent intent=new Intent(SumActivity.this,OrderActivity.class);
-                    intent.putExtra("order",order);
-                    startActivity(intent);
-                    finish();
+                    order.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String objectId,BmobException e) {
+                            if(e==null){
+                                obj=objectId;
+                                Intent intent=new Intent(SumActivity.this,OrderActivity.class);
+                                intent.putExtra("obj",obj);
+                                intent.putExtra("order",order);
+                                startActivity(intent);
+                                finish();
+                            }else{
+                                toast("创建数据失败：" + e.getMessage());
+                            }
+                        }
+                    });
                 }
             }
         });

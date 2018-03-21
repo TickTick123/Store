@@ -45,7 +45,7 @@ public class DigitalActivity extends AppCompatActivity {
     Button button1;
     List<Good> last_list;
     float sum=0;
-    int good1=0;
+    int good1=0,from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +107,7 @@ public class DigitalActivity extends AppCompatActivity {
                 Intent intent=new Intent(DigitalActivity.this, SumActivity.class);
                 intent.putExtra("key",(Serializable)last_list);
                 intent.putExtra("sum",sum);
+                intent.putExtra("from",from);
                 startActivity(intent);
                 finish();
             }
@@ -115,6 +116,7 @@ public class DigitalActivity extends AppCompatActivity {
     }
 
     public void getData(){
+        from=1;
         goodsdata=new String[6];        //左侧分类
         goodsdata[0]="手机";
         goodsdata[1]="电脑";
