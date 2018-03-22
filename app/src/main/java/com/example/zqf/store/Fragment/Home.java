@@ -17,6 +17,7 @@ import com.example.zqf.store.Activity_Home.CourierActivity;
 import com.example.zqf.store.Activity_Home.DigitalActivity;
 import com.example.zqf.store.Activity_Home.LeaseActivity;
 import com.example.zqf.store.Activity_Home.MarketActivity;
+import com.example.zqf.store.Activity_Home.PrinterActivity;
 import com.example.zqf.store.Activity_My.SettingActivity;
 import com.example.zqf.store.Adapter.HomePageAdapter;
 import com.example.zqf.store.R;
@@ -125,7 +126,8 @@ public class Home extends Fragment {
         but4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(getActivity(), PrinterActivity.class);
+                startActivity(intent);
             }
         });
         but5.setOnClickListener(new View.OnClickListener() {

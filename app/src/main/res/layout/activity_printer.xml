@@ -6,19 +6,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#EEE"
-    tools:context="com.example.zqf.store.Activity_Home.CourierActivity">
-
+    tools:context="com.example.zqf.store.Activity_Home.PrinterActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:background="#FFF"
         android:layout_margin="8dp"
+        android:background="#FFF"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView36"
+            android:id="@+id/textView43"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -34,7 +33,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView38"
+                android:id="@+id/textView45"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -44,7 +43,7 @@
                 android:layout_gravity="center_vertical"/>
 
             <TextView
-                android:id="@+id/textView37"
+                android:id="@+id/textView44"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -60,17 +59,17 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView40"
+                android:id="@+id/textView47"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="收件人"
                 android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"/>
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView39"
+                android:id="@+id/textView46"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -86,7 +85,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView42"
+                android:id="@+id/textView49"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -96,7 +95,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView41"
+                android:id="@+id/textView48"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -107,19 +106,19 @@
     </LinearLayout>
 
     <LinearLayout
-        android:background="#FFF"
         android:layout_margin="8dp"
+        android:background="#FFF"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView35"
+            android:id="@+id/textView52"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="快递信息"
+            android:text="打印信息"
             android:textStyle="bold"
             android:textSize="22sp"
             android:gravity="center_vertical"/>
@@ -131,84 +130,41 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView34"
+                android:id="@+id/textView56"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="取件人"
+                android:text="文件路径"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"/>
 
             <TextView
-                android:id="@+id/textView33"
+                android:id="@+id/textView55"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:text="请输入取件人"
-                android:textSize="15sp" />
+                android:text=""
+                android:textSize="15sp"
+                android:layout_gravity="center_vertical"/>
         </LinearLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/button20"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView32"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="取货号"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView31"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="3"
-                android:text="请输入取货号"
-                android:textSize="15sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView29"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="取货地址"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="3"
-                android:text="请输入取货地址"
-                android:textSize="15sp" />
-        </LinearLayout>
+            android:text="选择文件" />
     </LinearLayout>
 
     <Button
+        android:id="@+id/button19"
         android:layout_marginBottom="150dp"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:id="@+id/button18"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.35"

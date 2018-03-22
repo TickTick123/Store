@@ -79,7 +79,8 @@
         <activity android:name=".OrderActivity" />
         <activity android:name=".Activity_Home.DigitalActivity" />
         <activity android:name=".Activity_Home.LeaseActivity" />
-        <activity android:name=".Activity_Home.CourierActivity"></activity>
+        <activity android:name=".Activity_Home.CourierActivity" />
+        <activity android:name=".Activity_Home.PrinterActivity"></activity>
     </application>
 
 </manifest>
