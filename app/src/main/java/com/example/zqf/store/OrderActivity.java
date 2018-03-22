@@ -25,6 +25,9 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
+import static android.graphics.Color.GREEN;
+import static android.graphics.Color.WHITE;
+
 /**
  * Created by admin on 2018/3/20.
  */
@@ -64,6 +67,8 @@ public class OrderActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         but17=findViewById(R.id.button17);
+        but17.setTextColor(WHITE);
+        but17.setBackgroundColor(GREEN);
         if(tx24.getText().equals("配送中")){
             but17.setText("确认收货");
         }else if(tx24.getText().equals("待评价")){
@@ -83,7 +88,7 @@ public class OrderActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     tx16.setText(x.getText().toString());
-                                    tx24.setText("订单已完成");
+                                    tx24.setText("已完成");
                                 }
                             }).show();
                     but17.setVisibility(View.INVISIBLE);

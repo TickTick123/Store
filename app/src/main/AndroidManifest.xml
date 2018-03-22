@@ -78,7 +78,8 @@
         <activity android:name=".Activity_Home.MarketActivity" />
         <activity android:name=".OrderActivity" />
         <activity android:name=".Activity_Home.DigitalActivity" />
-        <activity android:name=".Activity_Home.LeaseActivity"></activity>
+        <activity android:name=".Activity_Home.LeaseActivity" />
+        <activity android:name=".Activity_Home.CourierActivity"></activity>
     </application>
 
 </manifest>

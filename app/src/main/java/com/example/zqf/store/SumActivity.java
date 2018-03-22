@@ -71,36 +71,36 @@ public class SumActivity extends AppCompatActivity {
         });
         tx9=findViewById(R.id.textView9);
         tx9.setText(user.getnicName());
-        tx9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final EditText x=new EditText(SumActivity.this);
-                x.setText(tx9.getText());
-                new AlertDialog.Builder(SumActivity.this).setTitle("修改收件人").setView(x)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                tx9.setText(x.getText().toString());
-                            }
-                        }).show();
-            }
-        });
+//        tx9.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                final EditText x=new EditText(SumActivity.this);
+//                x.setText(tx9.getText());
+//                new AlertDialog.Builder(SumActivity.this).setTitle("修改收件人").setView(x)
+//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                tx9.setText(x.getText().toString());
+//                            }
+//                        }).show();
+//            }
+//        });
         tx11=findViewById(R.id.textView11);
         tx11.setText(user.getMobilePhoneNumber());
-        tx11.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final EditText x=new EditText(SumActivity.this);
-                x.setText(tx11.getText());
-                new AlertDialog.Builder(SumActivity.this).setTitle("修改手机号").setView(x)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                tx11.setText(x.getText().toString());
-                            }
-                        }).show();
-            }
-        });
+//        tx11.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                final EditText x=new EditText(SumActivity.this);
+//                x.setText(tx11.getText());
+//                new AlertDialog.Builder(SumActivity.this).setTitle("修改手机号").setView(x)
+//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                tx11.setText(x.getText().toString());
+//                            }
+//                        }).show();
+//            }
+//        });
         tx13=findViewById(R.id.textView13);
         tx13.setOnClickListener(new View.OnClickListener() {
             @Override
