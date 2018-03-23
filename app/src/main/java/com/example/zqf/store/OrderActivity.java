@@ -68,7 +68,6 @@ public class OrderActivity extends AppCompatActivity {
 
         but17=findViewById(R.id.button17);
         but17.setTextColor(WHITE);
-        but17.setBackgroundColor(GREEN);
         if(tx24.getText().equals("配送中")){
             but17.setText("确认收货");
         }else if(tx24.getText().equals("待评价")){

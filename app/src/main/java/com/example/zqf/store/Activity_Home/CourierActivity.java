@@ -102,7 +102,6 @@ public class CourierActivity extends AppCompatActivity {
         tx41.setText(user.getMobilePhoneNumber());
 
         button=findViewById(R.id.button18);
-        button.setBackgroundColor(GREEN);
         button.setTextColor(WHITE);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

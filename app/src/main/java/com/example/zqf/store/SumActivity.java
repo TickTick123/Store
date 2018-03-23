@@ -122,7 +122,6 @@ public class SumActivity extends AppCompatActivity {
 
         but16=findViewById(R.id.button16);
         but16.setTextColor(WHITE);
-        but16.setBackgroundColor(GREEN);
         but16.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

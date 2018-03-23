@@ -18,19 +18,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zqf.store.Bean.Good;
 import com.example.zqf.store.Bean.Order;
 import com.example.zqf.store.Bean.User;
 import com.example.zqf.store.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UploadFileListener;
+import rx.functions.Action1;
 
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.WHITE;
+import static cn.bmob.v3.Bmob.getApplicationContext;
 
 public class PrinterActivity extends AppCompatActivity {
     TextView tx44,tx46,tx48,tx55;
@@ -68,27 +75,45 @@ public class PrinterActivity extends AppCompatActivity {
 
         but1=findViewById(R.id.button19);
         but1.setTextColor(WHITE);
-        but1.setBackgroundColor(GREEN);
         but1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tx44.getText().equals("请选择地址")||tx55.getText().equals("")){
-                    new AlertDialog.Builder(PrinterActivity.this).setTitle("提示")
-                            .setIcon(android.R.drawable.ic_dialog_info).setMessage("有信息未填完!")
-                            .setPositiveButton("确定", null).show();
-                }else{
-                    order.setUser(user);
-                    order.setState("配送中");
-                    order.setAddress(tx44.getText().toString());
-                    order.setFrom(3);
+//                if(tx44.getText().equals("请选择地址")||tx55.getText().equals("")){
+//                    new AlertDialog.Builder(PrinterActivity.this).setTitle("提示")
+//                            .setIcon(android.R.drawable.ic_dialog_info).setMessage("有信息未填完!")
+//                            .setPositiveButton("确定", null).show();
+//                }else{
+//                    order.setUser(user);
+//                    order.setState("配送中");
+//                    order.setAddress(tx44.getText().toString());
+//                    order.setFrom(3);
+//
+//                }
+                toast(path);
+                BmobFile bmobFile = new BmobFile(new File(path));
+                //BmobFile bmobFile = new BmobFile(new File("/data/user/0/com.example.zqf.store/cache/bmob/head.jpg"));
+                bmobFile.uploadblock(new UploadFileListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        if(e==null) {
+                            //bmobFile.getFileUrl()--返回的上传文件的完整地址
+                            toast("上传文件成功:" );//+ bmobFile.getFileUrl());
 
-                }
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(),"上传失败"+ e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    @Override
+                    public void onProgress(Integer value) {
+                        // 返回的上传进度（百分比）
+                    }
+                });
+
+
             }
         });
 
         but2=findViewById(R.id.button20);
-        but2.setBackgroundColor(GREEN);
-        but2.setTextColor(WHITE);
         but2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,14 +136,62 @@ public class PrinterActivity extends AppCompatActivity {
             if ("file".equalsIgnoreCase(uri.getScheme())){//使用第三方应用打开
                 path = uri.getPath();
                 tx55.setText(path);
+//                final BmobFile bmobFile = new BmobFile(new File(path));
+//                bmobFile.uploadblock(new UploadFileListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if(e==null){
+//                            //bmobFile.getFileUrl()--返回的上传文件的完整地址
+//                            toast("上传文件成功:" + bmobFile.getFileUrl());
+//                        }else{
+//                            toast("上传文件失败：" + e.getMessage());
+//                        }
+//                    }
+//                    @Override
+//                    public void onProgress(Integer value) {
+//                        // 返回的上传进度（百分比）
+//                    }
+//                });
                 return;
             }
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
                 path = getPath(this, uri);
                 tx55.setText(path);
+//                final BmobFile bmobFile = new BmobFile(new File(path));
+//                bmobFile.uploadblock(new UploadFileListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if(e==null){
+//                            //bmobFile.getFileUrl()--返回的上传文件的完整地址
+//                            toast("上传文件成功:" + bmobFile.getFileUrl());
+//                        }else{
+//                            toast("上传文件失败：" + e.getMessage());
+//                        }
+//                    }
+//                    @Override
+//                    public void onProgress(Integer value) {
+//                        // 返回的上传进度（百分比）
+//                    }
+//                });
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(uri);
                 tx55.setText(path);
+//                final BmobFile bmobFile = new BmobFile(new File(path));
+//                bmobFile.uploadblock(new UploadFileListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if(e==null){
+//                            //bmobFile.getFileUrl()--返回的上传文件的完整地址
+//                            toast("上传文件成功:" + bmobFile.getFileUrl());
+//                        }else{
+//                            toast("上传文件失败：" + e.getMessage());
+//                        }
+//                    }
+//                    @Override
+//                    public void onProgress(Integer value) {
+//                        // 返回的上传进度（百分比）
+//                    }
+//                });
             }
         }
     }
@@ -214,4 +287,7 @@ public class PrinterActivity extends AppCompatActivity {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
+    public void toast(String toast) {           //Toast便捷使用方法
+        Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
+    }
 }
