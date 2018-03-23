@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.zqf.store.Adapter.FinalGoodAdapter;
 import com.example.zqf.store.Bean.Good;
+import com.example.zqf.store.OrderActivity;
 import com.example.zqf.store.R;
 import com.example.zqf.store.SumActivity;
 
@@ -48,6 +51,14 @@ public class ReuseActivity extends AppCompatActivity {
                 }
             }
         });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(ReuseActivity.this,Reuse_DetailActivity.class);
+                intent.putExtra("good",goodList.get(i));
+                startActivity(intent);
+            }
+        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -70,8 +81,4 @@ public class ReuseActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
     }
 
-    public void onResume(){
-        super.onResume();
-        adapter.notifyDataSetChanged();
-    }
 }

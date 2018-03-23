@@ -86,6 +86,8 @@
         <activity android:name=".Activity_Home.Reuse_FormActivity"></activity>
         <activity android:name=".Activity_Home.Brand_FormActivity"></activity>
         <activity android:name=".Activity_Home.BrandActivity"></activity>
+        <activity android:name=".Activity_Home.Brand_DetailActivity"></activity>
+        <activity android:name=".Activity_Home.Reuse_DetailActivity"></activity>
     </application>
 
 </manifest>

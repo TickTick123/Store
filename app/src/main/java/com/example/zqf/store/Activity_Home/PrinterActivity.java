@@ -90,14 +90,14 @@ public class PrinterActivity extends AppCompatActivity {
 //
 //                }
                 toast(path);
-                BmobFile bmobFile = new BmobFile(new File(path));
+                 final BmobFile bmobFile = new BmobFile(new File(path));
                 //BmobFile bmobFile = new BmobFile(new File("/data/user/0/com.example.zqf.store/cache/bmob/head.jpg"));
                 bmobFile.uploadblock(new UploadFileListener() {
                     @Override
                     public void done(BmobException e) {
                         if(e==null) {
-                            //bmobFile.getFileUrl()--返回的上传文件的完整地址
-                            toast("上传文件成功:" );//+ bmobFile.getFileUrl());
+                            bmobFile.getFileUrl();
+                            toast("上传文件成功:" + bmobFile.getFileUrl());
 
                         }
                         else
@@ -136,62 +136,17 @@ public class PrinterActivity extends AppCompatActivity {
             if ("file".equalsIgnoreCase(uri.getScheme())){//使用第三方应用打开
                 path = uri.getPath();
                 tx55.setText(path);
-//                final BmobFile bmobFile = new BmobFile(new File(path));
-//                bmobFile.uploadblock(new UploadFileListener() {
-//                    @Override
-//                    public void done(BmobException e) {
-//                        if(e==null){
-//                            //bmobFile.getFileUrl()--返回的上传文件的完整地址
-//                            toast("上传文件成功:" + bmobFile.getFileUrl());
-//                        }else{
-//                            toast("上传文件失败：" + e.getMessage());
-//                        }
-//                    }
-//                    @Override
-//                    public void onProgress(Integer value) {
-//                        // 返回的上传进度（百分比）
-//                    }
-//                });
+               //上传文件
                 return;
             }
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
                 path = getPath(this, uri);
                 tx55.setText(path);
-//                final BmobFile bmobFile = new BmobFile(new File(path));
-//                bmobFile.uploadblock(new UploadFileListener() {
-//                    @Override
-//                    public void done(BmobException e) {
-//                        if(e==null){
-//                            //bmobFile.getFileUrl()--返回的上传文件的完整地址
-//                            toast("上传文件成功:" + bmobFile.getFileUrl());
-//                        }else{
-//                            toast("上传文件失败：" + e.getMessage());
-//                        }
-//                    }
-//                    @Override
-//                    public void onProgress(Integer value) {
-//                        // 返回的上传进度（百分比）
-//                    }
-//                });
+              //上传文件
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(uri);
                 tx55.setText(path);
-//                final BmobFile bmobFile = new BmobFile(new File(path));
-//                bmobFile.uploadblock(new UploadFileListener() {
-//                    @Override
-//                    public void done(BmobException e) {
-//                        if(e==null){
-//                            //bmobFile.getFileUrl()--返回的上传文件的完整地址
-//                            toast("上传文件成功:" + bmobFile.getFileUrl());
-//                        }else{
-//                            toast("上传文件失败：" + e.getMessage());
-//                        }
-//                    }
-//                    @Override
-//                    public void onProgress(Integer value) {
-//                        // 返回的上传进度（百分比）
-//                    }
-//                });
+              //上传文件
             }
         }
     }
