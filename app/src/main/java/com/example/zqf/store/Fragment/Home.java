@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.zqf.store.Activity_Home.BrandActivity;
 import com.example.zqf.store.Activity_Home.CourierActivity;
 import com.example.zqf.store.Activity_Home.DigitalActivity;
 import com.example.zqf.store.Activity_Home.LeaseActivity;
 import com.example.zqf.store.Activity_Home.MarketActivity;
 import com.example.zqf.store.Activity_Home.PrinterActivity;
+import com.example.zqf.store.Activity_Home.ReuseActivity;
 import com.example.zqf.store.Activity_My.SettingActivity;
 import com.example.zqf.store.Adapter.HomePageAdapter;
 import com.example.zqf.store.R;
@@ -133,13 +135,15 @@ public class Home extends Fragment {
         but5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(getActivity(), ReuseActivity.class);
+                startActivity(intent);
             }
         });
         but6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(getActivity(), BrandActivity.class);
+                startActivity(intent);
             }
         });
         but7.setOnClickListener(new View.OnClickListener() {
