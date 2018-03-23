@@ -82,6 +82,10 @@
         <activity android:name=".Activity_Home.LeaseActivity" />
         <activity android:name=".Activity_Home.CourierActivity" />
         <activity android:name=".Activity_Home.PrinterActivity"></activity>
+        <activity android:name=".Activity_Home.ReuseActivity"></activity>
+        <activity android:name=".Activity_Home.Reuse_FormActivity"></activity>
+        <activity android:name=".Activity_Home.Brand_FormActivity"></activity>
+        <activity android:name=".Activity_Home.BrandActivity"></activity>
     </application>
 
 </manifest>
