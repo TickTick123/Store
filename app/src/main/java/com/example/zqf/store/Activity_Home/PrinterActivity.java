@@ -23,15 +23,22 @@ import android.widget.Toast;
 import com.example.zqf.store.Bean.Good;
 import com.example.zqf.store.Bean.Order;
 import com.example.zqf.store.Bean.User;
+import com.example.zqf.store.OrderActivity;
 import com.example.zqf.store.R;
+import com.example.zqf.store.SumActivity;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import rx.functions.Action1;
 
@@ -45,7 +52,7 @@ public class PrinterActivity extends AppCompatActivity {
     Order order=new Order();
     List<Good> goodlist=new ArrayList<>();
     User user= BmobUser.getCurrentUser(User.class);
-    String obj,path;
+    String obj,path,tip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,36 +79,32 @@ public class PrinterActivity extends AppCompatActivity {
         tx48.setText(user.getMobilePhoneNumber());
 
         tx55=findViewById(R.id.textView55);
-
+        tx55.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(PrinterActivity.this).setTitle("详情")
+                        .setMessage(path)
+                        .setPositiveButton("确定", null).show();
+            }
+        });
         but1=findViewById(R.id.button19);
         but1.setTextColor(WHITE);
         but1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(tx44.getText().equals("请选择地址")||tx55.getText().equals("")){
-//                    new AlertDialog.Builder(PrinterActivity.this).setTitle("提示")
-//                            .setIcon(android.R.drawable.ic_dialog_info).setMessage("有信息未填完!")
-//                            .setPositiveButton("确定", null).show();
-//                }else{
-//                    order.setUser(user);
-//                    order.setState("配送中");
-//                    order.setAddress(tx44.getText().toString());
-//                    order.setFrom(3);
-//
-//                }
-                toast(path);
-                 final BmobFile bmobFile = new BmobFile(new File(path));
-                //BmobFile bmobFile = new BmobFile(new File("/data/user/0/com.example.zqf.store/cache/bmob/head.jpg"));
+
+                //final BmobFile bmobFile = new BmobFile(new File(path));
+                final BmobFile bmobFile = new BmobFile(new File("/data/user/0/com.example.zqf.store/cache/bmob/info.docx"));
                 bmobFile.uploadblock(new UploadFileListener() {
                     @Override
                     public void done(BmobException e) {
                         if(e==null) {
-                            bmobFile.getFileUrl();
-                            toast("上传文件成功:" + bmobFile.getFileUrl());
-
+                            tip=bmobFile.getFileUrl();
+                            order.setTips(tip);
+                            //toast("上传文件成功:" + bmobFile.getFileUrl());
                         }
                         else
-                            Toast.makeText(getApplicationContext(),"上传失败"+ e.getMessage(), Toast.LENGTH_LONG).show();
+                            toast("上传失败"+ e.getMessage());
                     }
                     @Override
                     public void onProgress(Integer value) {
@@ -110,6 +113,33 @@ public class PrinterActivity extends AppCompatActivity {
                 });
 
 
+                if(tx44.getText().equals("请选择地址")||tx55.getText().equals("")){
+                    new AlertDialog.Builder(PrinterActivity.this).setTitle("提示")
+                            .setIcon(android.R.drawable.ic_dialog_info).setMessage("有信息未填完!")
+                            .setPositiveButton("确定", null).show();
+                }else{
+                    order.setUser(user);
+                    order.setState("配送中");
+                    order.setAddress(tx44.getText().toString());
+                    order.setFrom(3);
+                    order.setSum(2.f);
+                    order.setGoods(goodlist);
+                    order.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String objectId,BmobException e) {
+                            if(e==null){
+                                obj=objectId;
+                                Intent intent=new Intent(PrinterActivity.this,OrderActivity.class);
+                                intent.putExtra("obj",obj);
+                                intent.putExtra("order",order);
+                                startActivity(intent);
+                                finish();
+                            }else{
+                                toast("创建数据失败：" + e.getMessage());
+                            }
+                        }
+                    });
+                }
             }
         });
 
@@ -136,17 +166,45 @@ public class PrinterActivity extends AppCompatActivity {
             if ("file".equalsIgnoreCase(uri.getScheme())){//使用第三方应用打开
                 path = uri.getPath();
                 tx55.setText(path);
-               //上传文件
+
+                try{
+                    fileCopy(path,"/data/user/0/com.example.zqf.store/cache/bmob/info.docx");//有异常，允许拒绝
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    toast(e.toString());
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    toast(e.toString());
+                }
+
                 return;
             }
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
                 path = getPath(this, uri);
                 tx55.setText(path);
-              //上传文件
+                try{
+                    fileCopy(path,"/data/user/0/com.example.zqf.store/cache/bmob/info.docx");
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    toast(e.toString());
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    toast(e.toString());
+                }
+
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(uri);
                 tx55.setText(path);
-              //上传文件
+                try{
+                    fileCopy(path,"/data/user/0/com.example.zqf.store/cache/bmob/info.docx");
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    toast(e.toString());
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    toast(e.toString());
+                }
+
             }
         }
     }
@@ -241,6 +299,31 @@ public class PrinterActivity extends AppCompatActivity {
     public boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
+
+    public static boolean fileCopy(String oldFilePath,String newFilePath) throws IOException {
+        //如果原文件不存在
+        if(fileExists(oldFilePath) == false){
+            return false;
+        }
+        //获得原文件流
+        FileInputStream inputStream = new FileInputStream(new File(oldFilePath));
+        byte[] data = new byte[1024];
+        //输出流
+        FileOutputStream outputStream =new FileOutputStream(new File(newFilePath));
+        //开始处理流
+        while (inputStream.read(data) != -1) {
+            outputStream.write(data);
+        }
+        inputStream.close();
+        outputStream.close();
+        return true;
+    }
+
+    public static boolean fileExists(String filePath) {
+        File file = new File(filePath);
+        return file.exists();
+    }
+
 
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();

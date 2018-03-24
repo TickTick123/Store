@@ -266,7 +266,7 @@ public class DigitalActivity extends AppCompatActivity {
                     File F0=new File(path);
                     if(!F0.exists()) {
                         download(goods0.get(position).getPicGood());            //此路径下无图片
-                        toast("00");
+                        //toast("00");
                     }
                     pic= BitmapFactory.decodeFile(path);
                     good_pic.setImageBitmap(pic);
