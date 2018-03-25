@@ -13,14 +13,18 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.zqf.store.Activity_Home.MarketActivity;
+import com.example.zqf.store.Bean.New;
 import com.example.zqf.store.Bean.User;
 import com.example.zqf.store.Fragment.Dingdan;
 import com.example.zqf.store.Fragment.Home;
 import com.example.zqf.store.Fragment.My;
+import com.example.zqf.store.Fragment.NewFragment;
 
 import java.lang.reflect.Field;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends AppCompatActivity {
     User user = BmobUser.getCurrentUser(User.class);
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new Home());
                     return true;
                 case R.id.navigation_discover:             //发现导航页
-                    //mTextMessage.setText(R.string.title_discover);
+                    replaceFragment(new NewFragment());
                     return true;
                 case R.id.navigation_order:                // 订单导航页
                     replaceFragment(new Dingdan());
@@ -63,6 +67,21 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         setDefaultFragment();          //设置初始fragment
+
+//        New p2 = new New();
+//        p2.setTitle("lucky");
+//        p2.setContent("北京海淀");
+//        p2.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String objectId,BmobException e) {
+//                if(e==null){
+//                    toast("添加数据成功，返回objectId为："+objectId);
+//                }else{
+//                    toast("创建数据失败：" + e.getMessage());
+//                }
+//            }
+//        });
+
     }
 
     private void setDefaultFragment() {
