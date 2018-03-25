@@ -72,6 +72,8 @@ public class OrderActivity extends AppCompatActivity {
             but17.setText("确认收货");
         }else if(tx24.getText().equals("待评价")){
             but17.setText("写评价");
+        }else if(tx24.getText().equals("已完成")){
+            but17.setVisibility(View.INVISIBLE);
         }
 
         but17.setOnClickListener(new View.OnClickListener() {
