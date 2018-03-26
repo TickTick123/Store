@@ -42,7 +42,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="@string/title_home"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
@@ -83,7 +83,8 @@
         <activity android:name=".Activity_Home.PrinterActivity" />
         <activity android:name=".Activity_Home.ReuseActivity" />
         <activity android:name=".Activity_Home.Reuse_FormActivity" />
-        <activity android:name=".Activity_Home.Brand_FormActivity" />
+        <activity android:name=".Activity_Home.Brand_FormActivity"
+            />
         <activity android:name=".Activity_Home.BrandActivity" />
         <activity android:name=".Activity_Home.Brand_DetailActivity" />
         <activity android:name=".Activity_Home.Reuse_DetailActivity" />

@@ -1,6 +1,7 @@
 package com.example.zqf.store.Activity_Home;
 
 import android.annotation.SuppressLint;
+
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
@@ -12,9 +13,12 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -53,10 +57,13 @@ public class PrinterActivity extends AppCompatActivity {
     List<Good> goodlist=new ArrayList<>();
     User user= BmobUser.getCurrentUser(User.class);
     String obj,path,tip;
+    ActionBar bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_printer);
+        bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
         tx44=findViewById(R.id.textView44);
         tx44.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -327,5 +334,20 @@ public class PrinterActivity extends AppCompatActivity {
 
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.empty,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

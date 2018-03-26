@@ -2,6 +2,7 @@ package com.example.zqf.store.Activity_Home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,10 +33,13 @@ public class ReuseActivity extends AppCompatActivity {
     List<Good> goodList=new ArrayList<>();
     ListView listView;
     FinalGoodAdapter adapter;
+    ActionBar bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reuse);
+        bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
         listView=findViewById(R.id.reuse_list);
         BmobQuery<Good> query = new BmobQuery<Good>();              //按条件查找右侧list    (1)
         query.addWhereEqualTo("type","二手");  // 查询当前用户的所有日程
@@ -73,6 +77,9 @@ public class ReuseActivity extends AppCompatActivity {
                 Intent intent=new Intent(ReuseActivity.this, Reuse_FormActivity.class);
                 startActivity(intent);
                 return true;
+            case android.R.id.home:
+                this.finish();
+                return false;
         }
         return false;
     }
@@ -80,5 +87,7 @@ public class ReuseActivity extends AppCompatActivity {
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
     }
+
+
 
 }

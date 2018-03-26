@@ -1,12 +1,14 @@
 package com.example.zqf.store;
 
 
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -29,6 +31,7 @@ import cn.bmob.v3.listener.SaveListener;
 public class MainActivity extends AppCompatActivity {
     User user = BmobUser.getCurrentUser(User.class);
     public static MainActivity mActivity;
+    ActionBar bar;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -39,15 +42,19 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:                  //首页导航页
                     replaceFragment(new Home());
+                    bar.setTitle("首页");
                     return true;
                 case R.id.navigation_discover:             //发现导航页
                     replaceFragment(new NewFragment());
+                    bar.setTitle("发现");
                     return true;
                 case R.id.navigation_order:                // 订单导航页
                     replaceFragment(new Dingdan());
+                    bar.setTitle("订单");
                     return true;
                 case R.id.navigation_my:                    //我的导航页
                     replaceFragment(new My());
+                    bar.setTitle("我的");
                     //BmobUser.logOut();   //清除缓存用户对象，既退出，
                     return true;
             }
@@ -60,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mActivity = this;
         setContentView(R.layout.activity_main);
-            toast(user.getUsername());
+            //toast(user.getUsername());
+         bar = getSupportActionBar();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         disableShiftMode(navigation);               //关闭导航动画

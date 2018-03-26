@@ -1,6 +1,7 @@
 package com.example.zqf.store.Activity_My;
 
 import android.content.DialogInterface;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,10 +28,13 @@ import cn.bmob.v3.listener.UpdateListener;
 public class AddressActivity extends AppCompatActivity {
     User user= BmobUser.getCurrentUser(User.class);
     private List<String> address=new ArrayList<>();
+    ActionBar bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
+        bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
         address=user.getAddress();
         final ArrayAdapter<String> adapter =new ArrayAdapter<String>(
                 AddressActivity.this,android.R.layout.simple_list_item_1,address);
@@ -85,6 +89,9 @@ public class AddressActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("取消",null).show();
                 return true;
+            case android.R.id.home:
+                this.finish();
+                return false;
         }
         return false;
     }

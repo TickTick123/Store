@@ -2,9 +2,12 @@ package com.example.zqf.store;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +39,7 @@ public class SumActivity extends AppCompatActivity {
     User user= BmobUser.getCurrentUser(User.class);
     List<Good> goodlist=new ArrayList<>();
     Order order=new Order();
+    ActionBar bar;
     float sum;
     int from;
     String obj;
@@ -43,6 +47,9 @@ public class SumActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sum);
+
+        bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent=getIntent();
         goodlist= (List<Good>) intent.getSerializableExtra("key");//接收商品表
@@ -160,5 +167,20 @@ public class SumActivity extends AppCompatActivity {
 
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.empty,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

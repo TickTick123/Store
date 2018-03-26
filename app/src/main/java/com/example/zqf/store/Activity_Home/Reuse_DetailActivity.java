@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,10 +26,13 @@ public class Reuse_DetailActivity extends AppCompatActivity {
     ImageView imageView;
     Good good=new Good();
     String path;
+    ActionBar bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reuse_form);
+        bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
         Intent intent=getIntent();
         good=(Good) intent.getSerializableExtra("good");
         path="/data/user/0/com.example.zqf.store/cache/bmob/"+good.getName()+".jpg";
@@ -50,5 +56,20 @@ public class Reuse_DetailActivity extends AppCompatActivity {
 
         button=findViewById(R.id.button21);
         button.setVisibility(View.INVISIBLE);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.empty,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

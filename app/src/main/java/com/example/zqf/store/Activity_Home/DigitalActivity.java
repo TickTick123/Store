@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,6 +38,9 @@ import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 
+import static android.graphics.Color.GRAY;
+import static android.graphics.Color.WHITE;
+
 public class DigitalActivity extends AppCompatActivity {
     public String[] goodsdata;             //左侧数据源
     BmobQuery<Good> query;
@@ -44,6 +50,7 @@ public class DigitalActivity extends AppCompatActivity {
     TextView price1;
     Button button1;
     List<Good> last_list;
+    ActionBar bar;
     float sum=0;
     int good1=0,from;
 
@@ -51,8 +58,13 @@ public class DigitalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_market);
+        bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
         price1=(TextView)findViewById(R.id.shop_price);
+        price1.setTextColor(WHITE);
+        price1.setBackgroundColor(GRAY);
         button1=(Button)findViewById(R.id.shop_sure);
+        button1.setTextColor(WHITE);
         last_list=new ArrayList<>();
 
         listView_de=(ListView)findViewById(R.id.market_de_list);                    //右侧listview
@@ -516,5 +528,20 @@ public class DigitalActivity extends AppCompatActivity {
 
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.empty,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

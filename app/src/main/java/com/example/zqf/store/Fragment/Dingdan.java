@@ -43,7 +43,7 @@ public class Dingdan extends Fragment {
 
         listView=view.findViewById(R.id.listView2);
 
-        BmobQuery<Order> bmobQuery = new BmobQuery<Order>();
+        BmobQuery<Order> bmobQuery = new BmobQuery<>();
         bmobQuery.addWhereEqualTo("user",user);  // 查询当前订单的所有日程
         bmobQuery.findObjects(new FindListener<Order>() {
             @Override

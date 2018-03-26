@@ -2,9 +2,12 @@ package com.example.zqf.store.Activity_Home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +34,7 @@ public class CourierActivity extends AppCompatActivity {
     TextView tx30,tx31,tx33,tx37,tx39,tx41;
     Button button;
     Order order=new Order();
+    ActionBar bar;
     List<Good> goodlist=new ArrayList<>();
     User user= BmobUser.getCurrentUser(User.class);
     String obj;
@@ -38,6 +42,8 @@ public class CourierActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courier);
+        bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
         tx30=findViewById(R.id.textView30);
         tx30.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,5 +145,20 @@ public class CourierActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.empty,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

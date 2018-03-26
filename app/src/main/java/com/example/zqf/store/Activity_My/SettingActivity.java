@@ -1,9 +1,13 @@
 package com.example.zqf.store.Activity_My;
 
+
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,11 +31,14 @@ import static cn.bmob.v3.Bmob.getApplicationContext;
 public class SettingActivity extends AppCompatActivity {
     User user;
     EditText ed1,ed2,ed3;
+    ActionBar bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+        bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
 
         user = BmobUser.getCurrentUser(User.class);
         ed1=findViewById(R.id.editText);
@@ -65,9 +72,10 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                user.setMobilePhoneNumber(ed3.getText().toString());
                 user.setNicName(ed1.getText().toString());
                 user.setSex(ed2.getText().toString());
-                user.setMobilePhoneNumber(ed3.getText().toString());
+
                 user.update(new UpdateListener() {
                     @Override
                     public void done(BmobException e) {
@@ -94,5 +102,20 @@ public class SettingActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.empty,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

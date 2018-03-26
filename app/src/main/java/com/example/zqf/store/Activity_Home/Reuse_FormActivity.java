@@ -7,8 +7,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +29,7 @@ import java.io.IOException;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import rx.functions.Action1;
@@ -43,12 +47,17 @@ public class Reuse_FormActivity extends AppCompatActivity {
     ImageView imageView;
     android.app.AlertDialog.Builder builder;
     Bitmap pic;
+    ActionBar bar;
     Good good=new Good();
     static String path="/data/user/0/com.example.zqf.store/cache/bmob/good.jpg";
+    private BmobFile bmobfile =new BmobFile("good.jpg","","http://bmob-cdn-17080.b0.upaiyun.com/2018/03/26/01c39eac40206d4180cbaae1cc200f00.jpg");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reuse_form);
+        bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        download(bmobfile);
         tx51=findViewById(R.id.textView51);
         tx51.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,7 +281,38 @@ public class Reuse_FormActivity extends AppCompatActivity {
         }
     }
 
+    private void download(BmobFile picUser) {
+        picUser.download(new DownloadFileListener() {
+            @Override
+            public void done(String s, BmobException e) {
+                if(e==null){
+                    //Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onProgress(Integer integer, long l) {
+
+            }
+        });
+    }
+
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.empty,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -3,8 +3,11 @@ package com.example.zqf.store;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +23,7 @@ import com.example.zqf.store.Bean.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -38,6 +42,8 @@ public class OrderActivity extends AppCompatActivity {
     ListView listView;
     List<Good> goodlist=new ArrayList<>();
     Order order=new Order();
+    User user= BmobUser.getCurrentUser(User.class);
+    ActionBar bar;
 
     String objectid;
     @Override
@@ -45,6 +51,8 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
+        bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
         Intent intent=getIntent();
         order=(Order)intent.getSerializableExtra("order");
         objectid=intent.getStringExtra("obj");
@@ -57,7 +65,7 @@ public class OrderActivity extends AppCompatActivity {
 
         tx16.setText(order.getEvaluate());
         tx17.setText(order.getAddress());
-        tx19.setText(order.getUser().getnicName()+"("+order.getUser().getMobilePhoneNumber()+")");
+        tx19.setText(user.getnicName()+"("+user.getMobilePhoneNumber()+")");
         tx21.setText(order.getTips());
         tx24.setText(order.getState());
         goodlist=order.getGoods();
@@ -117,5 +125,20 @@ public class OrderActivity extends AppCompatActivity {
 
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.empty,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

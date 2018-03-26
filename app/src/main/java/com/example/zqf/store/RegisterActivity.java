@@ -1,7 +1,10 @@
 package com.example.zqf.store;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,12 +27,15 @@ public class RegisterActivity extends AppCompatActivity {
     private Button regButton;
     private BmobFile bmobfile =new BmobFile("head.jpg","","http://bmob-cdn-17080.b0.upaiyun.com/2018/03/06/3d413e4bbfd848aeb536e40839106872.jpg");
     private List<String> ad=new ArrayList<>();
+    ActionBar bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
         name =(EditText) findViewById(R.id.editText_register_name);             //初始化
         password=(EditText)findViewById(R.id.editText_register_password);
         regButton=(Button)findViewById(R.id.button_register_Reg);
@@ -66,5 +72,20 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.empty,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
