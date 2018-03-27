@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.zqf.store.AboutActivity;
 import com.example.zqf.store.Bean.User;
 import com.example.zqf.store.LoginActivity;
 import com.example.zqf.store.MainActivity;
@@ -72,27 +73,35 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                user.setMobilePhoneNumber(ed3.getText().toString());
-                user.setNicName(ed1.getText().toString());
-                user.setSex(ed2.getText().toString());
-
-                user.update(new UpdateListener() {
+                User newUser = new User();
+                if(ed3.getText().toString().equals(user.getMobilePhoneNumber())){
+                    newUser.setNicName(ed1.getText().toString());
+                    newUser.setSex(ed2.getText().toString());
+                }else{
+                    newUser.setNicName(ed1.getText().toString());
+                    newUser.setSex(ed2.getText().toString());
+                    newUser.setMobilePhoneNumber(ed3.getText().toString());
+                }
+                newUser.update(user.getObjectId(),new UpdateListener() {
                     @Override
                     public void done(BmobException e) {
                         if(e==null){
+                            //toast("更新用户信息成功");
                             finish();
+                        }else{
+                            toast("更新用户信息失败:" + e.getMessage());
                         }
-                        else
-                            Toast.makeText(getApplicationContext(),"更新失败！", Toast.LENGTH_LONG).show();
                     }
                 });
+
             }
         });
 
         bu14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(SettingActivity.this, AboutActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -118,5 +127,9 @@ public class SettingActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void toast(String toast) {           //Toast便捷使用方法
+        Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
     }
 }

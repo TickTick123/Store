@@ -83,12 +83,12 @@
         <activity android:name=".Activity_Home.PrinterActivity" />
         <activity android:name=".Activity_Home.ReuseActivity" />
         <activity android:name=".Activity_Home.Reuse_FormActivity" />
-        <activity android:name=".Activity_Home.Brand_FormActivity"
-            />
+        <activity android:name=".Activity_Home.Brand_FormActivity" />
         <activity android:name=".Activity_Home.BrandActivity" />
         <activity android:name=".Activity_Home.Brand_DetailActivity" />
         <activity android:name=".Activity_Home.Reuse_DetailActivity" />
-        <activity android:name=".NewActivity"></activity>
+        <activity android:name=".NewActivity" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>
