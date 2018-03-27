@@ -37,6 +37,8 @@ public class NewActivity extends AppCompatActivity {
         tx22.setText(anew.getTitle());
         TextView tx27=findViewById(R.id.textView_all_content);
         tx27.setText(anew.getContent());
+        TextView tx28=findViewById(R.id.textView68);
+        tx28.setText(anew.getUpdatedAt());
     }
 
     public void toast(String toast) {           //Toast便捷使用方法

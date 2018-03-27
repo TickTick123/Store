@@ -12,9 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zqf.store.Bean.Good;
 import com.example.zqf.store.R;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.DownloadFileListener;
+import cn.bmob.v3.listener.QueryListener;
 
 /**
  * Created by admin on 2018/3/23.
@@ -36,6 +43,16 @@ public class Reuse_DetailActivity extends AppCompatActivity {
         Intent intent=getIntent();
         good=(Good) intent.getSerializableExtra("good");
         path="/data/user/0/com.example.zqf.store/cache/bmob/"+good.getName()+".jpg";
+
+        BmobQuery<Good> query = new BmobQuery<>();
+        query.getObject(good.getObjectId(), new QueryListener<Good>() {
+            @Override
+            public void done(Good good, BmobException e) {
+                if(e==null){
+                    download(good.getPicGood());
+                }
+            }
+        });
 
         tx51=findViewById(R.id.textView51);
         tx51.setText(good.getMasterneme());
@@ -71,5 +88,21 @@ public class Reuse_DetailActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void download(BmobFile picUser) {
+        picUser.download(new DownloadFileListener() {
+            @Override
+            public void done(String s, BmobException e) {
+                if (e == null) {
+                    //Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
+                } else
+                    Toast.makeText(getApplicationContext(), "失败！", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onProgress(Integer integer, long l) {
+
+            }
+        });
     }
 }

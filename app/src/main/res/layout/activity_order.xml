@@ -22,19 +22,19 @@
 
             <TextView
                 android:id="@+id/textView18"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginLeft="8dp"
                 android:textSize="15sp"
-                android:text="地址"
-                android:gravity="center"/>
+                android:text="地址" />
 
             <TextView
                 android:id="@+id/textView17"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:text=""
+                android:layout_weight="4"
+                android:text=":"
                 android:textSize="15sp"/>
         </LinearLayout>
 
@@ -46,19 +46,19 @@
 
             <TextView
                 android:id="@+id/textView20"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="收件人"
-                android:textSize="15sp"
-                android:gravity="center"/>
+                android:layout_marginLeft="8dp"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/textView19"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text=""
+                android:layout_weight="4"
+                android:text=":"
                 android:textSize="15sp"/>
         </LinearLayout>
 
@@ -70,19 +70,20 @@
 
             <TextView
                 android:id="@+id/textView23"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="备注"
+                android:layout_marginLeft="8dp"
                 android:textSize="15sp"
-                android:gravity="center"/>
+                />
 
             <TextView
                 android:id="@+id/textView21"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:text="" />
+                android:layout_weight="4"
+                android:text=":" />
         </LinearLayout>
 
         <LinearLayout
@@ -93,19 +94,20 @@
 
             <TextView
                 android:id="@+id/textView25"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="配送状态"
+                android:layout_marginLeft="8dp"
                 android:textSize="15sp"
-                android:gravity="center"/>
+                />
 
             <TextView
                 android:id="@+id/textView24"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text=""
+                android:layout_weight="4"
+                android:text=":"
                 android:textSize="15sp"/>
         </LinearLayout>
     </LinearLayout>

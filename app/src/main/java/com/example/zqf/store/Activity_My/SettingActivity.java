@@ -96,12 +96,13 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        bu15.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        bu15.setVisibility(View.INVISIBLE);
+//        bu15.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu){

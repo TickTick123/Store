@@ -29,13 +29,10 @@ import java.io.IOException;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
-import rx.functions.Action1;
 
 import static android.graphics.Color.WHITE;
-import static cn.bmob.v3.Bmob.getApplicationContext;
 
 /**
  * Created by admin on 2018/3/23.
@@ -49,15 +46,13 @@ public class Reuse_FormActivity extends AppCompatActivity {
     Bitmap pic;
     ActionBar bar;
     Good good=new Good();
-    static String path="/data/user/0/com.example.zqf.store/cache/bmob/good.jpg";
-    private BmobFile bmobfile =new BmobFile("good.jpg","","http://bmob-cdn-17080.b0.upaiyun.com/2018/03/26/01c39eac40206d4180cbaae1cc200f00.jpg");
+    String path;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reuse_form);
         bar = getSupportActionBar();
         bar.setDisplayHomeAsUpEnabled(true);
-        download(bmobfile);
         tx51=findViewById(R.id.textView51);
         tx51.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +105,7 @@ public class Reuse_FormActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 tx61.setText(x.getText().toString());
+                                path="/data/user/0/com.example.zqf.store/cache/bmob/"+tx61.getText().toString()+".jpg";
                             }
                         }).show();
             }
@@ -235,8 +231,18 @@ public class Reuse_FormActivity extends AppCompatActivity {
                     if (pic != null) {
                         saveBitmap(pic);
                         final BmobFile bmobFile = new BmobFile(new File(path));
-                        good.setPicGood(bmobFile);
-                        imageView.setImageBitmap(pic);//用ImageView显示出来
+                        bmobFile.uploadblock(new UploadFileListener() {
+                            @Override
+                            public void done(BmobException e) {
+                                if(e==null) {
+                                    good.setPicGood(bmobFile);
+                                    imageView.setImageBitmap(pic);//用ImageView显示出来
+                                }
+                                else {
+                                    toast("失败！");
+                                }
+                            }
+                        });
                     }
                 }
                 break;
@@ -279,22 +285,6 @@ public class Reuse_FormActivity extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
-
-    private void download(BmobFile picUser) {
-        picUser.download(new DownloadFileListener() {
-            @Override
-            public void done(String s, BmobException e) {
-                if(e==null){
-                    //Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onProgress(Integer integer, long l) {
-
-            }
-        });
     }
 
     public void toast(String toast) {           //Toast便捷使用方法
