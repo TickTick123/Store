@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/good_pic"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="120dp"
         android:layout_weight="1"
         app:srcCompat="@drawable/badge" />
 
@@ -22,7 +22,8 @@
             android:id="@+id/good_name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:layout_marginTop="8dp"
             android:textSize="20sp"/>
         <LinearLayout
             android:layout_width="match_parent"

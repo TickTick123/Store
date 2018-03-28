@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zqf.store.Activity_My.AddressActivity;
+import com.example.zqf.store.Activity_My.LikeActivity;
 import com.example.zqf.store.Activity_My.SettingActivity;
 import com.example.zqf.store.Bean.User;
 import com.example.zqf.store.MainActivity;
@@ -89,7 +90,8 @@ public class My extends Fragment {
         but9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent address =new Intent(getApplicationContext(), LikeActivity.class);
+                startActivity(address);
             }
         });
         but10.setOnClickListener(new View.OnClickListener() {

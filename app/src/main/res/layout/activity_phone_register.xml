@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/home_back"
     tools:context="com.example.zqf.store.PhoneRegisterActivity">
 
     <EditText
@@ -51,6 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:background="#99CCFF"
             android:text="@string/phone_reg_3" />
 
     </LinearLayout>
@@ -76,6 +78,7 @@
     <Button
         android:id="@+id/button_phonereg_reg"
         android:layout_width="match_parent"
+        android:background="#99CCFF"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"

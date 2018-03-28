@@ -1,5 +1,6 @@
 package com.example.zqf.store.Activity_Home;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,13 +16,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zqf.store.Bean.Good;
+import com.example.zqf.store.Bean.User;
 import com.example.zqf.store.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by admin on 2018/3/23.
@@ -32,8 +39,11 @@ public class Reuse_DetailActivity extends AppCompatActivity {
     Button button;
     ImageView imageView;
     Good good=new Good();
+    List<Good> goods=new ArrayList<>();
     String path;
     ActionBar bar;
+    User user= BmobUser.getCurrentUser(User.class);
+    int state;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +52,8 @@ public class Reuse_DetailActivity extends AppCompatActivity {
         bar.setDisplayHomeAsUpEnabled(true);
         Intent intent=getIntent();
         good=(Good) intent.getSerializableExtra("good");
+        goods=user.getGoods();
+        state=intent.getIntExtra("state",-1);
         path="/data/user/0/com.example.zqf.store/cache/bmob/"+good.getName()+".jpg";
 
         BmobQuery<Good> query = new BmobQuery<>();
@@ -53,7 +65,7 @@ public class Reuse_DetailActivity extends AppCompatActivity {
                 }
             }
         });
-
+        
         tx51=findViewById(R.id.textView51);
         tx51.setText(good.getMasterneme());
         tx54=findViewById(R.id.textView54);
@@ -76,7 +88,7 @@ public class Reuse_DetailActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.empty,menu);
+        getMenuInflater().inflate(R.menu.like,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -85,6 +97,37 @@ public class Reuse_DetailActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return false;
+            case R.id.like:
+                if(item.getTitle().toString().equals("收藏")){
+                    goods.add(good);
+                    user.setGoods(goods);
+                    user.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e==null){
+                                toast("已收藏");
+                            }else{
+                                toast(e.getMessage());
+                            }
+                        }
+                    });
+                    item.setTitle("已收藏");
+                }else if(item.getTitle().toString().equals("已收藏")){
+                    goods.remove(good);
+                    user.setGoods(goods);
+                    user.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e==null){
+                                toast("已取消");
+                            }else{
+                                toast(e.getMessage());
+                            }
+                        }
+                    });
+                    item.setTitle("收藏");
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -104,5 +147,9 @@ public class Reuse_DetailActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void toast(String toast) {           //Toast便捷使用方法
+        Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
     }
 }

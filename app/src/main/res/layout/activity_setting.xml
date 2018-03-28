@@ -29,7 +29,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="#99CCFF"
-        android:text="@string/my_setting_skin"
+        android:text="修改密码"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

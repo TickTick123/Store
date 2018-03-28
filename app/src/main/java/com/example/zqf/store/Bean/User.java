@@ -22,6 +22,15 @@ public class User extends BmobUser{
     private String state; 		     // 状态
     private BmobFile picUser; 	// 头像
     private String sex;          //性别
+    private List<Good> goods;  //收藏物品
+
+    public List<Good> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(List<Good> goods) {
+        this.goods = goods;
+    }
 
     public String getSex() { return sex; }
 

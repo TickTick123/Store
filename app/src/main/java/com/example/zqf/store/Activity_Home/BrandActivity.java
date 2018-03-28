@@ -57,6 +57,7 @@ public class BrandActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent=new Intent(BrandActivity.this,Brand_DetailActivity.class);
                 intent.putExtra("good",goodList.get(i));
+                intent.putExtra("state",0);
                 startActivity(intent);
             }
         });

@@ -2,18 +2,23 @@ package com.example.zqf.store.Activity_My;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.zqf.store.AboutActivity;
+import com.example.zqf.store.Activity_Home.Brand_FormActivity;
 import com.example.zqf.store.Bean.User;
 import com.example.zqf.store.LoginActivity;
 import com.example.zqf.store.MainActivity;
@@ -31,7 +36,7 @@ import static cn.bmob.v3.Bmob.getApplicationContext;
 
 public class SettingActivity extends AppCompatActivity {
     User user;
-    EditText ed1,ed2,ed3;
+    EditText ed1,ed2,ed3,ed4,ed5;
     ActionBar bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,8 @@ public class SettingActivity extends AppCompatActivity {
         ed1=findViewById(R.id.editText);
         ed2=findViewById(R.id.editText2);
         ed3=findViewById(R.id.editText3);
+        ed4=findViewById(R.id.editText4);
+        ed5=findViewById(R.id.editText5);
         ed1.setText(user.getnicName());
         ed2.setText(user.getSex());
         ed3.setText(user.getMobilePhoneNumber());
@@ -105,13 +112,32 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        bu15.setVisibility(View.INVISIBLE);
-//        bu15.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        bu15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.dialog, (ViewGroup) findViewById(R.id.dialog));
+                new AlertDialog.Builder(SettingActivity.this).setTitle("修改密码").setView(layout)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                BmobUser.updateCurrentUserPassword("2222","1234", new UpdateListener() {
+//                                    @Override
+//                                    public void done(BmobException e) {
+//                                        if(e==null){
+//                                            toast("密码修改成功，可以用新密码进行登录啦");
+//                                        }else{
+//                                            toast("失败:" + e.getMessage());
+//                                        }
+//                                    }
 //
-//            }
-//        });
+//                                });
+                            }
+                        })
+                        .setNegativeButton("取消", null).show();
+            }
+        });
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu){

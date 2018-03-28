@@ -88,7 +88,8 @@
         <activity android:name=".Activity_Home.Brand_DetailActivity" />
         <activity android:name=".Activity_Home.Reuse_DetailActivity" />
         <activity android:name=".NewActivity" />
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".Activity_My.LikeActivity"></activity>
     </application>
 
 </manifest>

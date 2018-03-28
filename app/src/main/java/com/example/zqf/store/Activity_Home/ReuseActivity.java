@@ -60,6 +60,7 @@ public class ReuseActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent=new Intent(ReuseActivity.this,Reuse_DetailActivity.class);
                 intent.putExtra("good",goodList.get(i));
+                intent.putExtra("state",0);
                 startActivity(intent);
             }
         });
