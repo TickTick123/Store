@@ -39,7 +39,7 @@ import static android.graphics.Color.WHITE;
  */
 
 public class Brand_FormActivity extends AppCompatActivity {
-    TextView tx51,tx54,tx58,tx61,tx65,tx63;
+    TextView tx51,tx54,tx58,tx61,tx65,tx63,tx81;
     Button button;
     ImageView imageView;
     ActionBar bar;
@@ -138,6 +138,20 @@ public class Brand_FormActivity extends AppCompatActivity {
                         }).show();
             }
         });
+        tx81=findViewById(R.id.textView81);
+        tx81.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final EditText x=new EditText(Brand_FormActivity.this);
+                new AlertDialog.Builder(Brand_FormActivity.this).setTitle("填写学院班级").setView(x)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                tx81.setText(x.getText().toString());
+                            }
+                        }).show();
+            }
+        });
         imageView=findViewById(R.id.imageView3);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,7 +194,8 @@ public class Brand_FormActivity extends AppCompatActivity {
                         tx65.getText().equals("")||
                         tx51.getText().equals("")||
                         tx54.getText().equals("")||
-                        tx58.getText().equals("")){
+                        tx58.getText().equals("")||
+                        tx81.getText().equals("")){
                     new AlertDialog.Builder(Brand_FormActivity.this).setTitle("提示")
                             .setIcon(android.R.drawable.ic_dialog_info).setMessage("有信息未填完!")
                             .setPositiveButton("确定", null).show();
@@ -191,6 +206,7 @@ public class Brand_FormActivity extends AppCompatActivity {
                     good.setMasterneme(tx51.getText().toString());
                     good.setMasterphone(tx58.getText().toString());
                     good.setMasterQQ(tx54.getText().toString());
+                    good.setMasterClass(tx81.getText().toString());
                     good.setType("潮牌");
                     good.setNumber(1);
                     good.save(new SaveListener<String>() {

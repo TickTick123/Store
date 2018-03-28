@@ -50,8 +50,6 @@ public class SettingActivity extends AppCompatActivity {
         ed1=findViewById(R.id.editText);
         ed2=findViewById(R.id.editText2);
         ed3=findViewById(R.id.editText3);
-        ed4=findViewById(R.id.editText4);
-        ed5=findViewById(R.id.editText5);
         ed1.setText(user.getnicName());
         ed2.setText(user.getSex());
         ed3.setText(user.getMobilePhoneNumber());
@@ -117,21 +115,24 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 LayoutInflater inflater = getLayoutInflater();
                 View layout = inflater.inflate(R.layout.dialog, (ViewGroup) findViewById(R.id.dialog));
+                ed4=layout.findViewById(R.id.editText4);
+                ed5=layout.findViewById(R.id.editText5);
                 new AlertDialog.Builder(SettingActivity.this).setTitle("修改密码").setView(layout)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-//                                BmobUser.updateCurrentUserPassword("2222","1234", new UpdateListener() {
-//                                    @Override
-//                                    public void done(BmobException e) {
-//                                        if(e==null){
-//                                            toast("密码修改成功，可以用新密码进行登录啦");
-//                                        }else{
-//                                            toast("失败:" + e.getMessage());
-//                                        }
-//                                    }
-//
-//                                });
+
+                                BmobUser.updateCurrentUserPassword(ed4.getText().toString(),ed5.getText().toString(), new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if(e==null){
+                                            toast("密码修改成功，可以用新密码进行登录啦");
+                                        }else{
+                                            toast("失败:" + e.getMessage());
+                                        }
+                                    }
+                                });
+                                
                             }
                         })
                         .setNegativeButton("取消", null).show();

@@ -29,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     private BmobFile bmobfile =new BmobFile("head.jpg","","http://bmob-cdn-17080.b0.upaiyun.com/2018/03/06/3d413e4bbfd848aeb536e40839106872.jpg");
     private List<String> ad=new ArrayList<>();
     ActionBar bar;
-
+    List<Good> goods=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
                 bu.setNicName("请输入昵称");
                 bu.setSex("待定。。。");
                 bu.setAddress(ad);
+                bu.setGoods(goods);
                 bu.signUp(new SaveListener<User>() {
                     @Override
                     public void done(User s, BmobException e) {

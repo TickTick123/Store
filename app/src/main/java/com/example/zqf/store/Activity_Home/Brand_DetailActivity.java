@@ -36,7 +36,7 @@ import cn.bmob.v3.listener.UpdateListener;
  */
 
 public class Brand_DetailActivity extends AppCompatActivity {
-    TextView tx51,tx54,tx58,tx61,tx65,tx63;
+    TextView tx51,tx54,tx58,tx61,tx65,tx63,tx81;
     Button button;
     ImageView imageView;
     Good good=new Good();
@@ -79,6 +79,8 @@ public class Brand_DetailActivity extends AppCompatActivity {
         tx65.setText(good.getDescribe());
         tx63=findViewById(R.id.textView63);
         tx63.setText(good.getPrice()+"");
+        tx81=findViewById(R.id.textView81);
+        tx81.setText(good.getMasterClass());
 
         imageView=findViewById(R.id.imageView3);
 

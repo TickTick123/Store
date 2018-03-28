@@ -1,10 +1,12 @@
 package com.example.zqf.store.Activity_Home;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -23,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zqf.store.Bean.Good;
+import com.example.zqf.store.Good_detailActivity;
 import com.example.zqf.store.R;
 import com.example.zqf.store.SumActivity;
 
@@ -51,6 +55,7 @@ public class DigitalActivity extends AppCompatActivity {
     Button button1;
     List<Good> last_list;
     ActionBar bar;
+    Good good9;
     float sum=0;
     int good1=0,from;
 
@@ -81,47 +86,80 @@ public class DigitalActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position1, long l) {
                 good1=position1;                      //ok
                 listView_de.setAdapter(goodAdapter);
+
             }
         });
+
+        listView_de.setOnItemClickListener(new AdapterView.OnItemClickListener() {         //右侧点击
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position1, long l) {
+
+                //toast("11");
+                if(good1==0)
+                    good9=goods0.get(position1);
+                if(good1==1)
+                    good9=goods1.get(position1);
+                if(good1==2)
+                    good9=goods2.get(position1);
+                if(good1==3)
+                    good9=goods3.get(position1);
+                if(good1==4)
+                    good9=goods4.get(position1);
+                if(good1==5)
+                    good9=goods5.get(position1);
+
+                Intent intent=new Intent(DigitalActivity.this, Good_detailActivity.class);
+                intent.putExtra("keygood",good9);
+                startActivity(intent);
+
+            }
+        });
+
         button1.setOnClickListener(new View.OnClickListener() {         //提交购买
             @Override
             public void onClick(View view) {
-                if(goods0!=null)
-                for(int i=0;i<goods0.size();i++){
-                    if(goods0.get(i).getNumber()>0)
-                        last_list.add(goods0.get(i));
+                if(sum<5){
+                    new AlertDialog.Builder(DigitalActivity.this).setTitle("提示")
+                            .setMessage("够买未满5元！")
+                            .setPositiveButton("确定", null).show();
+                }else{
+                    if(goods0!=null)
+                    for(int i=0;i<goods0.size();i++){
+                        if(goods0.get(i).getNumber()>0)
+                            last_list.add(goods0.get(i));
+                    }
+                    if(goods1!=null)
+                    for(int i=0;i<goods1.size();i++){
+                        if(goods1.get(i).getNumber()>0)
+                            last_list.add(goods1.get(i));
+                    }
+                    if(goods2!=null)
+                    for(int i=0;i<goods2.size();i++){
+                        if(goods2.get(i).getNumber()>0)
+                            last_list.add(goods2.get(i));
+                    }
+                    if(goods3!=null)
+                    for(int i=0;i<goods3.size();i++){
+                        if(goods3.get(i).getNumber()>0)
+                            last_list.add(goods3.get(i));
+                    }
+                    if(goods4!=null)
+                    for(int i=0;i<goods4.size();i++){
+                        if(goods4.get(i).getNumber()>0)
+                            last_list.add(goods4.get(i));
+                    }
+                    if(goods5!=null)
+                    for(int i=0;i<goods5.size();i++){
+                        if(goods5.get(i).getNumber()>0)
+                            last_list.add(goods5.get(i));
+                    }
+                    Intent intent=new Intent(DigitalActivity.this, SumActivity.class);
+                    intent.putExtra("key",(Serializable)last_list);
+                    intent.putExtra("sum",sum);
+                    intent.putExtra("from",from);
+                    startActivity(intent);
+                    finish();
                 }
-                if(goods1!=null)
-                for(int i=0;i<goods1.size();i++){
-                    if(goods1.get(i).getNumber()>0)
-                        last_list.add(goods1.get(i));
-                }
-                if(goods2!=null)
-                for(int i=0;i<goods2.size();i++){
-                    if(goods2.get(i).getNumber()>0)
-                        last_list.add(goods2.get(i));
-                }
-                if(goods3!=null)
-                for(int i=0;i<goods3.size();i++){
-                    if(goods3.get(i).getNumber()>0)
-                        last_list.add(goods3.get(i));
-                }
-                if(goods4!=null)
-                for(int i=0;i<goods4.size();i++){
-                    if(goods4.get(i).getNumber()>0)
-                        last_list.add(goods4.get(i));
-                }
-                if(goods5!=null)
-                for(int i=0;i<goods5.size();i++){
-                    if(goods5.get(i).getNumber()>0)
-                        last_list.add(goods5.get(i));
-                }
-                Intent intent=new Intent(DigitalActivity.this, SumActivity.class);
-                intent.putExtra("key",(Serializable)last_list);
-                intent.putExtra("sum",sum);
-                intent.putExtra("from",from);
-                startActivity(intent);
-                finish();
             }
         });
 

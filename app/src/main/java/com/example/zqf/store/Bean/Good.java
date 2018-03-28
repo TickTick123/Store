@@ -19,7 +19,15 @@ public class Good extends BmobObject implements Serializable {
     private String masterneme;  //商品所属用户姓名(个人商品发布时使用)
     private String masterphone;  //商品所属用户手机号(个人商品发布时使用)
     private String masterQQ;  //商品所属用户QQ(个人商品发布时使用)
+    private String masterClass; //商品所属用户学院班级(个人商品发布时使用)
 
+    public String getMasterClass() {
+        return masterClass;
+    }
+
+    public void setMasterClass(String masterClass) {
+        this.masterClass = masterClass;
+    }
 
     public String getName() {
         return name;
