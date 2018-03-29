@@ -53,7 +53,7 @@ public class Dingdan extends Fragment {
                     OrderAdapter adapter=new OrderAdapter(getActivity(),R.layout.item_order,orderlist);
                     listView.setAdapter(adapter);
                 } else{
-                    toast("失败："+e.getMessage());
+                    //toast("失败："+e.getMessage());
                 }
             }
         });

@@ -48,7 +48,8 @@ import static android.graphics.Color.WHITE;
 public class DigitalActivity extends AppCompatActivity {
     public String[] goodsdata;             //左侧数据源
     BmobQuery<Good> query;
-    public List<Good> goods0=null,goods1=null,goods2=null,goods3=null,goods4=null,goods5=null;
+    public List<Good> goods0=null,goods1=null,goods2=null,goods3=null,goods4=null,goods5=null,
+            goods6=null,goods7=null;
     GoodAdapter1 goodAdapter;
     ListView listView_de;
     TextView price1;
@@ -107,6 +108,10 @@ public class DigitalActivity extends AppCompatActivity {
                     good9=goods4.get(position1);
                 if(good1==5)
                     good9=goods5.get(position1);
+                if(good1==6)
+                    good9=goods6.get(position1);
+                if(good1==7)
+                    good9=goods7.get(position1);
 
                 Intent intent=new Intent(DigitalActivity.this, Good_detailActivity.class);
                 intent.putExtra("keygood",good9);
@@ -153,6 +158,16 @@ public class DigitalActivity extends AppCompatActivity {
                         if(goods5.get(i).getNumber()>0)
                             last_list.add(goods5.get(i));
                     }
+                    if(goods6!=null)
+                        for(int i=0;i<goods6.size();i++){
+                            if(goods6.get(i).getNumber()>0)
+                                last_list.add(goods6.get(i));
+                        }
+                    if(goods7!=null)
+                        for(int i=0;i<goods7.size();i++){
+                            if(goods7.get(i).getNumber()>0)
+                                last_list.add(goods7.get(i));
+                        }
                     Intent intent=new Intent(DigitalActivity.this, SumActivity.class);
                     intent.putExtra("key",(Serializable)last_list);
                     intent.putExtra("sum",sum);
@@ -291,6 +306,10 @@ public class DigitalActivity extends AppCompatActivity {
                     return goods4.size();
                 case 5:
                     return goods5.size();
+                case 6:
+                    return goods6.size();
+                case 7:
+                    return goods7.size();
                 default:
                     return goods0.size();
             }
@@ -422,6 +441,46 @@ public class DigitalActivity extends AppCompatActivity {
                     pic= BitmapFactory.decodeFile(path);
                     good_pic.setImageBitmap(pic);
                     break;
+                case 6:
+                    name.setText((String) goods6.get(position).getName());
+                    price.setText(goods6.get(position).getPrice()+"元");                  //bug
+                    number.setText(goods6.get(position).getNumber()+"");
+                    path="/data/user/0/com.example.zqf.store/cache/bmob/"+goods6.get(position).getName()+".jpg";
+                    File F6=new File(path);
+                    if(!F6.exists()) {
+                        BmobQuery<Good> query = new BmobQuery<>();
+                        query.getObject(goods6.get(position).getObjectId(), new QueryListener<Good>() {
+                            @Override
+                            public void done(Good good, BmobException e) {
+                                if(e==null){
+                                    download(good.getPicGood());
+                                }
+                            }
+                        });
+                    }
+                    pic= BitmapFactory.decodeFile(path);
+                    good_pic.setImageBitmap(pic);
+                    break;
+                case 7:
+                    name.setText((String) goods7.get(position).getName());
+                    price.setText(goods7.get(position).getPrice()+"元");                  //bug
+                    number.setText(goods7.get(position).getNumber()+"");
+                    path="/data/user/0/com.example.zqf.store/cache/bmob/"+goods7.get(position).getName()+".jpg";
+                    File F7=new File(path);
+                    if(!F7.exists()) {
+                        BmobQuery<Good> query = new BmobQuery<>();
+                        query.getObject(goods7.get(position).getObjectId(), new QueryListener<Good>() {
+                            @Override
+                            public void done(Good good, BmobException e) {
+                                if(e==null){
+                                    download(good.getPicGood());
+                                }
+                            }
+                        });
+                    }
+                    pic= BitmapFactory.decodeFile(path);
+                    good_pic.setImageBitmap(pic);
+                    break;
 
             }
 
@@ -479,6 +538,22 @@ public class DigitalActivity extends AppCompatActivity {
                                 price1.setText("总计："+sum+"元");
                             }
                             break;
+                        case 6:
+                            if(goods6.get(position).getNumber()>0){
+                                goods6.get(position).setNumber(goods6.get(position).getNumber()-1);
+                                goodAdapter.notifyDataSetChanged();
+                                sum=sum-goods6.get(position).getPrice();
+                                price1.setText("总计："+sum+"元");
+                            }
+                            break;
+                        case 7:
+                            if(goods7.get(position).getNumber()>0){
+                                goods7.get(position).setNumber(goods7.get(position).getNumber()-1);
+                                goodAdapter.notifyDataSetChanged();
+                                sum=sum-goods7.get(position).getPrice();
+                                price1.setText("总计："+sum+"元");
+                            }
+                            break;
                         default:
                             goods0.get(position).setNumber(goods0.get(position).getNumber()+1);
                             goodAdapter.notifyDataSetChanged();
@@ -528,6 +603,18 @@ public class DigitalActivity extends AppCompatActivity {
                             goods5.get(position).setNumber(goods5.get(position).getNumber()+1);
                             goodAdapter.notifyDataSetChanged();
                             sum=sum+goods5.get(position).getPrice();
+                            price1.setText("总计："+sum+"元");
+                            break;
+                        case 6:
+                            goods6.get(position).setNumber(goods6.get(position).getNumber()+1);
+                            goodAdapter.notifyDataSetChanged();
+                            sum=sum+goods6.get(position).getPrice();
+                            price1.setText("总计："+sum+"元");
+                            break;
+                        case 7:
+                            goods7.get(position).setNumber(goods7.get(position).getNumber()+1);
+                            goodAdapter.notifyDataSetChanged();
+                            sum=sum+goods7.get(position).getPrice();
                             price1.setText("总计："+sum+"元");
                             break;
                         default:

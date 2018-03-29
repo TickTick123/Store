@@ -46,20 +46,23 @@ public class MarketActivity extends DigitalActivity {
     @Override
     public void getData(){
         from=0;
-        goodsdata=new String[6];        //左侧分类
+        goodsdata=new String[8];        //左侧分类
         goodsdata[0]="汽水饮料";
         goodsdata[1]="休闲零食";
         goodsdata[2]="牛奶乳品";
         goodsdata[3]="饼干糕点";
         goodsdata[4]="坚果蜜饯";
         goodsdata[5]="糖果冲饮";
+        goodsdata[6]="日用百货";
+        goodsdata[7]="时令鲜果";
+
 
         query = new BmobQuery<Good>();              //按条件查找右侧list    (1)
         query.addWhereEqualTo("type","汽水饮料");  // 查询当前用户的所有日程
         query.findObjects(new FindListener<Good>() {
             @Override
             public void done(List<Good> object, BmobException e) {
-                if(e==null){;
+                if(e==null){
                     goods0=object;                        //获取传递数据成功
                     //toast("success0");
                     listView_de.setAdapter(goodAdapter);            //初始化
@@ -74,7 +77,7 @@ public class MarketActivity extends DigitalActivity {
         query.findObjects(new FindListener<Good>() {
             @Override
             public void done(List<Good> object, BmobException e) {
-                if(e==null){;
+                if(e==null){
                     goods1=object;                        //获取传递数据成功
                     //toast("success1");
                 }else{
@@ -87,7 +90,7 @@ public class MarketActivity extends DigitalActivity {
         query.findObjects(new FindListener<Good>() {
             @Override
             public void done(List<Good> object, BmobException e) {
-                if(e==null){;
+                if(e==null){
                     goods2=object;                        //获取传递数据成功
                     //toast("success2");
                 }else{
@@ -100,7 +103,7 @@ public class MarketActivity extends DigitalActivity {
         query.findObjects(new FindListener<Good>() {
             @Override
             public void done(List<Good> object, BmobException e) {
-                if(e==null){;
+                if(e==null){
                     goods3=object;                        //获取传递数据成功
                     //toast("success3");
                 }else{
@@ -113,7 +116,7 @@ public class MarketActivity extends DigitalActivity {
         query.findObjects(new FindListener<Good>() {
             @Override
             public void done(List<Good> object, BmobException e) {
-                if(e==null){;
+                if(e==null){
                     goods4=object;                        //获取传递数据成功
                     //toast("success4");
                 }else{
@@ -126,7 +129,7 @@ public class MarketActivity extends DigitalActivity {
         query.findObjects(new FindListener<Good>() {
             @Override
             public void done(List<Good> object, BmobException e) {
-                if(e==null){;
+                if(e==null){
                     goods5=object;                        //获取传递数据成功
                     //toast("success5");
                 }else{
@@ -134,6 +137,35 @@ public class MarketActivity extends DigitalActivity {
                 }
             }
         });
+
+        query = new BmobQuery<Good>();              //按条件查找右侧list    (5)
+        query.addWhereEqualTo("type","日用百货");  // 查询当前用户的所有日程
+        query.findObjects(new FindListener<Good>() {
+            @Override
+            public void done(List<Good> object, BmobException e) {
+                if(e==null){
+                    goods6=object;                        //获取传递数据成功
+                    //toast("success5");
+                }else{
+                    toast("失败："+e.getMessage());
+                }
+            }
+        });
+
+        query = new BmobQuery<Good>();              //按条件查找右侧list    (5)
+        query.addWhereEqualTo("type","时令鲜果");  // 查询当前用户的所有日程
+        query.findObjects(new FindListener<Good>() {
+            @Override
+            public void done(List<Good> object, BmobException e) {
+                if(e==null){
+                    goods7=object;                        //获取传递数据成功
+                    //toast("success5");
+                }else{
+                    toast("失败："+e.getMessage());
+                }
+            }
+        });
+
 
     }
 
