@@ -44,10 +44,10 @@
 
             <ImageButton
                 android:id="@+id/good_sub"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/minus" />
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                app:srcCompat="@drawable/minus"
+                android:layout_gravity="center"/>
             <TextView
                 android:id="@+id/good_num"
                 android:layout_width="0dp"
@@ -58,9 +58,10 @@
 
             <ImageButton
                 android:id="@+id/good_add"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
                 app:srcCompat="@drawable/plus" />
 
 
