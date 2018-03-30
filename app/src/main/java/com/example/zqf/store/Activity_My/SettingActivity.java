@@ -92,6 +92,10 @@ public class SettingActivity extends AppCompatActivity {
                     public void done(BmobException e) {
                         if(e==null){
                             //toast("更新用户信息成功");
+                            Intent intent=new Intent();
+                            intent.putExtra("nicName",ed1.getText().toString());
+                            intent.putExtra("phone",ed3.getText().toString());
+                            setResult(RESULT_OK,intent);
                             finish();
                         }else{
                             toast("更新用户信息失败:" + e.getMessage());

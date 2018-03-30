@@ -64,7 +64,7 @@ public class My extends Fragment {
 
     public My (){}
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_my, container, false);
 
@@ -90,8 +90,8 @@ public class My extends Fragment {
         but9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent address =new Intent(getApplicationContext(), LikeActivity.class);
-                startActivity(address);
+                Intent like =new Intent(getApplicationContext(), LikeActivity.class);
+                startActivity(like);
             }
         });
         but10.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +116,8 @@ public class My extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent setting =new Intent(getApplicationContext(), SettingActivity.class);
-                startActivity(setting);
+                startActivityForResult(setting,4);
+
             }
         });
 
@@ -234,6 +235,12 @@ public class My extends Fragment {
                         });
                         ivHead.setImageBitmap(head);//用ImageView显示出来
                     }
+                }
+                break;
+            case 4:
+                if(resultCode == RESULT_OK) {
+                    Text.setText(data.getStringExtra("phone"));
+                    Text2.setText(data.getStringExtra("nicName"));
                 }
                 break;
             default:
