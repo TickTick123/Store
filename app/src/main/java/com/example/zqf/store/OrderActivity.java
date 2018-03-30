@@ -9,12 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zqf.store.Activity_Home.DigitalActivity;
 import com.example.zqf.store.Adapter.FinalGoodAdapter;
 import com.example.zqf.store.Bean.Good;
 import com.example.zqf.store.Bean.Order;
@@ -73,6 +75,14 @@ public class OrderActivity extends AppCompatActivity {
         listView=findViewById(R.id.ordershoplist);
         FinalGoodAdapter adapter=new FinalGoodAdapter(OrderActivity.this,R.layout.item_finalgood,goodlist);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(OrderActivity.this, Good_detailActivity.class);
+                intent.putExtra("keygood",goodlist.get(i));
+                startActivity(intent);
+            }
+        });
 
         but17=findViewById(R.id.button17);
         but17.setTextColor(WHITE);
@@ -135,6 +145,7 @@ public class OrderActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:
+                setResult(RESULT_OK);
                 this.finish();
                 return false;
             default:

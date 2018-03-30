@@ -108,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text=":"
+                android:textColor="#00CC00 "
                 android:textSize="15sp"/>
         </LinearLayout>
     </LinearLayout>

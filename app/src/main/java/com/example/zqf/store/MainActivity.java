@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setDefaultFragment() {
+    public void setDefaultFragment() {
         replaceFragment(new Home());
     }
 
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
     }
 
-    private void replaceFragment(android.support.v4.app.Fragment fragment){
+    public void replaceFragment(android.support.v4.app.Fragment fragment){
         android.support.v4.app.FragmentManager fm=getSupportFragmentManager();
         FragmentTransaction transaction=fm.beginTransaction();
         transaction.replace(R.id.content,fragment);

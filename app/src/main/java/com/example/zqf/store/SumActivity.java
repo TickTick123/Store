@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -126,7 +127,14 @@ public class SumActivity extends AppCompatActivity {
         FinalGoodAdapter adapter=new FinalGoodAdapter(SumActivity.this,R.layout.item_finalgood,goodlist);
         listView=findViewById(R.id.shoplastlist);
         listView.setAdapter(adapter);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(SumActivity.this, Good_detailActivity.class);
+                intent.putExtra("keygood",goodlist.get(i));
+                startActivity(intent);
+            }
+        });
         but16=findViewById(R.id.button16);
         but16.setTextColor(WHITE);
         but16.setOnClickListener(new View.OnClickListener() {

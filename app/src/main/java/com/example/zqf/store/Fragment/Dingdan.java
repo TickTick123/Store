@@ -25,7 +25,9 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
+import static android.app.Activity.RESULT_OK;
 import static cn.bmob.v3.Bmob.getApplicationContext;
+import static com.example.zqf.store.MainActivity.mActivity;
 
 /**
  * Created by admin on 2018/3/17.
@@ -35,6 +37,8 @@ public class Dingdan extends Fragment {
     ListView listView;
     List<Order> orderlist=new ArrayList<>();
     User user= BmobUser.getCurrentUser(User.class);
+    int x;
+    OrderAdapter adapter;
     public Dingdan(){}
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +54,7 @@ public class Dingdan extends Fragment {
             public void done(List<Order> object, BmobException e) {
                 if(e==null){
                     orderlist=object;
-                    OrderAdapter adapter=new OrderAdapter(getActivity(),R.layout.item_order,orderlist);
+                    adapter=new OrderAdapter(getActivity(),R.layout.item_order,orderlist);
                     listView.setAdapter(adapter);
                 } else{
                     //toast("失败："+e.getMessage());
@@ -60,10 +64,11 @@ public class Dingdan extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                x=i;
                 Intent intent=new Intent(getActivity(),OrderActivity.class);
                 intent.putExtra("obj",orderlist.get(i).getObjectId());
                 intent.putExtra("order",orderlist.get(i));
-                startActivity(intent);
+                startActivityForResult(intent,10);
             }
         });
 
@@ -73,4 +78,19 @@ public class Dingdan extends Fragment {
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 10:
+                if(resultCode==RESULT_OK) {
+                    //刷新fragment
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
 }
