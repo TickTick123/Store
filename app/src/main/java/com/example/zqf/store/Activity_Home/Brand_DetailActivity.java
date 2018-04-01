@@ -17,7 +17,9 @@ import android.widget.Toast;
 import com.example.zqf.store.Bean.Good;
 import com.example.zqf.store.Bean.Order;
 import com.example.zqf.store.Bean.User;
+import com.example.zqf.store.Good_detailActivity;
 import com.example.zqf.store.R;
+import com.example.zqf.store.SumActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -77,6 +79,14 @@ public class Brand_DetailActivity extends AppCompatActivity {
         tx61.setText(good.getName());
         tx65=findViewById(R.id.textView65);
         tx65.setText(good.getDescribe());
+        tx65.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Brand_DetailActivity.this, Good_detailActivity.class);
+                intent.putExtra("keygood",good);
+                startActivity(intent);
+            }
+        });
         tx63=findViewById(R.id.textView63);
         tx63.setText(good.getPrice()+"");
         tx81=findViewById(R.id.textView81);

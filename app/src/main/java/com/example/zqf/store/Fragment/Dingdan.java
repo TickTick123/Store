@@ -85,7 +85,8 @@ public class Dingdan extends Fragment {
         switch (requestCode) {
             case 10:
                 if(resultCode==RESULT_OK) {
-                    //刷新fragment
+                    //fragment更新
+
                 }
                 break;
             default:

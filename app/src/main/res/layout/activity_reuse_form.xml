@@ -197,7 +197,9 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="3"
                 android:text=""
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:ellipsize="end"
+                android:maxLines="1"/>
         </LinearLayout>
 
         <LinearLayout

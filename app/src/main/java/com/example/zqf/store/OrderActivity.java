@@ -33,6 +33,7 @@ import cn.bmob.v3.listener.UpdateListener;
 
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.WHITE;
+import static com.example.zqf.store.MainActivity.mActivity;
 
 /**
  * Created by admin on 2018/3/20.
@@ -125,7 +126,7 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void done(BmobException e) {
                 if(e==null){
-
+                    setResult(RESULT_OK);
                 }else{
                     toast("更新失败：" + e.getMessage());
                 }
@@ -145,7 +146,7 @@ public class OrderActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:
-                setResult(RESULT_OK);
+                //setResult(RESULT_OK);
                 this.finish();
                 return false;
             default:
