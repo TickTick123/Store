@@ -24,7 +24,6 @@
 
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/loge"
@@ -124,22 +123,18 @@
             android:label="我的收藏" />
         <activity android:name=".Good_detailActivity" />
         <activity android:name=".Activity_My.AddressDetilActivity" />
-        <activity android:name=".TextActivity">
-
-        </activity>
-
+        <activity android:name=".Text.TextActivity"></activity>
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind"/>
-
+            android:screenOrientation="behind" />
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind"/>
-
+            android:screenOrientation="behind" />
+        <activity android:name=".Text.Text2Activity"></activity>
     </application>
 
 </manifest>

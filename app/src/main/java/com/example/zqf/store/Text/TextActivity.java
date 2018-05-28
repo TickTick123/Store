@@ -1,9 +1,11 @@
-package com.example.zqf.store;
+package com.example.zqf.store.Text;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+
+import com.example.zqf.store.R;
 
 public class TextActivity extends AppCompatActivity {
 
