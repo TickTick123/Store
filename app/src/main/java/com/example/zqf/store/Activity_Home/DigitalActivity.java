@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -638,7 +639,7 @@ public class DigitalActivity extends AppCompatActivity {
             @Override
             public void done(String s, BmobException e) {
                 if(e==null){
-                    //Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(),s, Toast. ENGTH_LONG).show();
                 }
                 else
                     toast("失败："+e.getMessage());

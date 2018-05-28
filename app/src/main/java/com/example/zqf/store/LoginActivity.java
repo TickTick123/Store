@@ -4,20 +4,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zqf.store.Bean.User;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
-import cn.bmob.v3.listener.SaveListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -106,6 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         if(view.getId()==R.id.textView_reg){             //一键登录按钮
             Intent mainIntent=new Intent(LoginActivity.this,RegisterActivity.class);
+            //Intent mainIntent=new Intent(LoginActivity.this,TextActivity.class);
             startActivity(mainIntent);
         }
         if(view.getId()==R.id.textView_phonereg){        //手机号登录按钮

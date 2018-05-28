@@ -26,9 +26,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="地址"
-                android:gravity="center"
                 android:layout_gravity="center_vertical"
-                android:textSize="25dp"/>
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"/>
 
             <TextView
                 android:id="@+id/textView7"
@@ -36,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="请选择地址"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
 
@@ -52,9 +53,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="收件人"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textView9"
@@ -79,7 +81,8 @@
                 android:layout_weight="1"
                 android:text="手机号"
                 android:textSize="20dp"
-                android:gravity="center"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"/>
 
             <TextView

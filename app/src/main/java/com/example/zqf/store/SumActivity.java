@@ -1,33 +1,50 @@
 package com.example.zqf.store;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zqf.store.Activity_Home.MarketActivity;
+import com.example.zqf.store.Activity_My.AddressActivity;
+import com.example.zqf.store.Activity_My.SettingActivity;
 import com.example.zqf.store.Adapter.FinalGoodAdapter;
 import com.example.zqf.store.Bean.Good;
 import com.example.zqf.store.Bean.Order;
 import com.example.zqf.store.Bean.User;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 import static android.graphics.Color.GRAY;
 import static android.graphics.Color.GREEN;
@@ -44,6 +61,7 @@ public class SumActivity extends AppCompatActivity {
     float sum;
     int from;
     String obj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,19 +171,37 @@ public class SumActivity extends AppCompatActivity {
                     order.setState("配送中");//状态
                     order.setTips(tx13.getText().toString());
 
-                    order.save(new SaveListener<String>() {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.pay_dialog, (ViewGroup) findViewById(R.id.pay_dialog));
+                    ImageView im=layout.findViewById(R.id.imageView_pay);
+                    AlertDialog.Builder ab= new AlertDialog.Builder(SumActivity.this);
+                    ab.setView(layout).show();
+                    im.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void done(String objectId,BmobException e) {
-                            if(e==null){
-                                obj=objectId;
-                                Intent intent=new Intent(SumActivity.this,OrderActivity.class);
-                                intent.putExtra("obj",obj);
-                                intent.putExtra("order",order);
-                                startActivity(intent);
-                                finish();
-                            }else{
-                                toast("创建数据失败：" + e.getMessage());
-                            }
+                        public void onClick(View view) {
+                            final String[] Items={"扫描图中二维码"};
+                            new AlertDialog.Builder(SumActivity.this).setItems(Items, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    if(i==0){
+                                        order.save(new SaveListener<String>() {
+                                            @Override
+                                            public void done(String objectId,BmobException e) {
+                                                if(e==null){
+                                                    obj=objectId;
+                                                    Intent intent=new Intent(SumActivity.this,OrderActivity.class);
+                                                    intent.putExtra("obj",obj);
+                                                    intent.putExtra("order",order);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }else{
+                                                    toast("创建数据失败：" + e.getMessage());
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            }).show();
                         }
                     });
                 }
@@ -191,4 +227,5 @@ public class SumActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

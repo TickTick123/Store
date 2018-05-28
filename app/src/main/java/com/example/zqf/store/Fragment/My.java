@@ -1,18 +1,23 @@
 package com.example.zqf.store.Fragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.DrawableRes;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +60,7 @@ public class My extends Fragment {
 
     ImageView ivHead;//头像显示
     Bitmap head;//头像Bitmap
-    AlertDialog.Builder builder;//AlertDialog构造器
+    AlertDialog.Builder builder0;//AlertDialog构造器
     User user;
     Button but8,but9,but10,but11;
     TextView Text,Text2;
@@ -66,6 +71,12 @@ public class My extends Fragment {
 
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+
+
         View view=inflater.inflate(R.layout.fragment_my, container, false);
 
         user = BmobUser.getCurrentUser(User.class);
@@ -141,11 +152,11 @@ public class My extends Fragment {
         ivHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                builder=new AlertDialog.Builder(getActivity());
-                builder.setIcon(R.mipmap.ic_launcher);
-                builder.setTitle("请选择获取图片方式");
+                builder0=new AlertDialog.Builder(getActivity());
+                builder0.setIcon(R.mipmap.ic_launcher);
+                builder0.setTitle("请选择获取图片方式");
                 final String[] Items={"从相册中选择","使用相机拍摄"};
-                builder.setItems(Items, new DialogInterface.OnClickListener() {
+                builder0.setItems(Items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(i==0) {
                             Intent intent1 = new Intent(Intent.ACTION_PICK, null);//返回被选中项的URI  
@@ -153,18 +164,21 @@ public class My extends Fragment {
                             startActivityForResult(intent1,1);
                         }
                         if(i==1){
-                            try{
+                            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)!= PackageManager
+                                    .PERMISSION_GRANTED||ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager
+                                    .PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+                            }
+                            else{
                                 Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//开启相机应用程序获取并返回图片（capture：俘获）  
-                                intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"head.jpg")));//指明存储图片或视频的地址URI  
-                                startActivityForResult(intent2,2);//采用ForResult打开  
-                            } catch (Exception e) {
-                                Toast.makeText(getApplicationContext(),"相机无法启动，请先开启相机权限", Toast.LENGTH_LONG).show();
+                                intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "head.jpg")));//指明存储图片或视频的地址URI  
+                                startActivityForResult(intent2, 2);//采用ForResult打开
                             }
                         }
                     }
                 });
-                builder.setCancelable(true);
-                AlertDialog dialog=builder.create();
+                builder0.setCancelable(true);
+                AlertDialog dialog=builder0.create();
                 dialog.show();
             }
         });
@@ -282,6 +296,26 @@ public class My extends Fragment {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+
+        switch(requestCode){
+            case 2:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//开启相机应用程序获取并返回图片（capture：俘获）  
+                    intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "head.jpg")));//指明存储图片或视频的地址URI  
+                    startActivityForResult(intent2, 2);//采用ForResult打开  
+                }
+                else  {
+                    Toast.makeText(getActivity(),"you denied the permission",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+        }
+
     }
 
     public void toast(String toast) {           //Toast便捷使用方法
