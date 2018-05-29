@@ -1,15 +1,8 @@
 package com.example.zqf.store.Text;
 
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-import com.example.zqf.store.R;
+//用于测试支付宝功能
+public class Text2Activity extends AppCompatActivity{
 
-public class Text2Activity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_text2);
-    }
 }

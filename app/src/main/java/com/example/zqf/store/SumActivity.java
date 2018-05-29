@@ -38,6 +38,7 @@ import com.example.zqf.store.Bean.User;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +62,8 @@ public class SumActivity extends AppCompatActivity {
     float sum;
     int from;
     String obj;
+    public static final String ALIPAY_PERSON_2_PAY = "https://QR.ALIPAY.COM/FKX00024RDOFNJRKXDBY8D" +
+            "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,40 +173,23 @@ public class SumActivity extends AppCompatActivity {
                     order.setAddress(tx7.getText().toString());
                     order.setState("配送中");//状态
                     order.setTips(tx13.getText().toString());
-
-                    LayoutInflater inflater = getLayoutInflater();
-                    View layout = inflater.inflate(R.layout.pay_dialog, (ViewGroup) findViewById(R.id.pay_dialog));
-                    ImageView im=layout.findViewById(R.id.imageView_pay);
-                    AlertDialog.Builder ab= new AlertDialog.Builder(SumActivity.this);
-                    ab.setView(layout).show();
-                    im.setOnClickListener(new View.OnClickListener() {
+                    order.save(new SaveListener<String>() {
                         @Override
-                        public void onClick(View view) {
-                            final String[] Items={"扫描图中二维码"};
-                            new AlertDialog.Builder(SumActivity.this).setItems(Items, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    if(i==0){
-                                        order.save(new SaveListener<String>() {
-                                            @Override
-                                            public void done(String objectId,BmobException e) {
-                                                if(e==null){
-                                                    obj=objectId;
-                                                    Intent intent=new Intent(SumActivity.this,OrderActivity.class);
-                                                    intent.putExtra("obj",obj);
-                                                    intent.putExtra("order",order);
-                                                    startActivity(intent);
-                                                    finish();
-                                                }else{
-                                                    toast("创建数据失败：" + e.getMessage());
-                                                }
-                                            }
-                                        });
-                                    }
-                                }
-                            }).show();
+                        public void done(String objectId,BmobException e) {
+                            if(e==null){
+                                obj=objectId;
+                                Intent intent=new Intent(SumActivity.this,OrderActivity.class);
+                                intent.putExtra("obj",obj);
+                                intent.putExtra("order",order);
+                                startActivity(intent);
+                                openAliPay2Pay(ALIPAY_PERSON_2_PAY);
+                                finish();
+                            }else{
+                                toast("");
+                            }
                         }
                     });
+
                 }
             }
         });
@@ -226,6 +212,47 @@ public class SumActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+
+    /**
+     * 支付
+     *
+     * @param qrCode
+     */
+    private void openAliPay2Pay(String qrCode) {
+        if (openAlipayPayPage(this, qrCode)) {
+            Toast.makeText(this, "跳转成功", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "跳转失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static boolean openAlipayPayPage(Context context, String qrcode) {
+        try {
+            qrcode = URLEncoder.encode(qrcode, "utf-8");
+        } catch (Exception e) {
+        }
+        try {
+            final String alipayqr = "alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode=" + qrcode;
+            openUri(context, alipayqr + "%3F_s%3Dweb-other&_t=" + System.currentTimeMillis());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 发送一个intent
+     *
+     * @param context
+     * @param s
+     */
+    private static void openUri(Context context, String s) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(s));
+        context.startActivity(intent);
     }
 
 }

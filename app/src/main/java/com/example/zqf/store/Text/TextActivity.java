@@ -7,6 +7,8 @@ import android.widget.ImageView;
 
 import com.example.zqf.store.R;
 
+//用于测试加载界面
+
 public class TextActivity extends AppCompatActivity {
 
     private ImageView img_loading;

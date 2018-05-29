@@ -11,7 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.zqf.store.Bean.Good;
 import com.example.zqf.store.Bean.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.datatype.BmobFile;
@@ -25,8 +29,9 @@ public class PhoneRegisterActivity extends AppCompatActivity {
     private EditText phone;
     private EditText password,code;
     private Button codeRutton,regButton;
+    private List<String> ad=new ArrayList<>();
     private BmobFile bmobfile =new BmobFile("head.jpg","","http://bmob-cdn-17080.b0.upaiyun.com/2018/03/06/3d413e4bbfd848aeb536e40839106872.jpg");
-
+    List<Good> goods=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,12 +71,13 @@ public class PhoneRegisterActivity extends AppCompatActivity {
 
                 User user = new User();
                 user.setMobilePhoneNumber(phone.getText().toString());//设置手机号码（必填）
-                //user.setUsername(xxx);                  //设置用户名，如果没有传用户名，则默认为手机号码
+
                 user.setPassword(password.getText().toString());                  //设置用户密码
                 user.setNicName("请输入昵称");
                 user.setSex("待定。。。");
                 user.setPicUser(bmobfile);
-
+                user.setGoods(goods);
+                user.setAddress(ad);
                 if(password.getText().toString().equals(""))
                     toast("密码不能为空");
                 else{

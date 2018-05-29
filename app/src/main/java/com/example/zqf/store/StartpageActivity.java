@@ -31,7 +31,6 @@ public class StartpageActivity extends Activity {
 
         Bmob.initialize(this, "14ad818ac5ca96d7f6166b841450afee");      //云数据库连接
 
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {                     //Intent跳转

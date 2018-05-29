@@ -28,7 +28,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/loge"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/loge"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -124,6 +124,7 @@
         <activity android:name=".Good_detailActivity" />
         <activity android:name=".Activity_My.AddressDetilActivity" />
         <activity android:name=".Text.TextActivity"></activity>
+
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -134,6 +135,7 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind" />
+
         <activity android:name=".Text.Text2Activity"></activity>
     </application>
 

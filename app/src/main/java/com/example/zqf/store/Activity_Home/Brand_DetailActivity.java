@@ -102,11 +102,6 @@ public class Brand_DetailActivity extends AppCompatActivity {
     }
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.like,menu);
-        MenuItem item=menu.findItem(R.id.like);
-        if(state==0)
-            item.setTitle("收藏");
-        else if(state==1)
-            item.setTitle("已收藏");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -130,7 +125,7 @@ public class Brand_DetailActivity extends AppCompatActivity {
                         }
                     });
                     item.setTitle("已收藏");
-                }if(item.getTitle().toString().equals("已收藏")){
+                }else if(item.getTitle().toString().equals("已收藏")){
                     goods.remove(good);
                     user.setGoods(goods);
                     user.update(new UpdateListener() {
@@ -146,8 +141,8 @@ public class Brand_DetailActivity extends AppCompatActivity {
                     item.setTitle("收藏");
                 }
                 return true;
-             default:
-                 return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
