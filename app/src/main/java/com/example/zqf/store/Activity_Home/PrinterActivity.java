@@ -178,10 +178,10 @@ public class PrinterActivity extends AppCompatActivity {
                     fileCopy(path,"/data/user/0/com.example.zqf.store/cache/bmob/info.docx");//有异常，允许拒绝
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
-                    toast(e.toString());
+                    //toast(e.toString());
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
-                    toast(e.toString());
+                    //toast(e.toString());
                 }
 
                 return;
@@ -193,10 +193,10 @@ public class PrinterActivity extends AppCompatActivity {
                     fileCopy(path,"/data/user/0/com.example.zqf.store/cache/bmob/info.docx");
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
-                    toast(e.toString());
+                    //toast(e.toString());
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
-                    toast(e.toString());
+                    //toast(e.toString());
                 }
 
             } else {//4.4以下下系统调用方法
@@ -206,10 +206,10 @@ public class PrinterActivity extends AppCompatActivity {
                     fileCopy(path,"/data/user/0/com.example.zqf.store/cache/bmob/info.docx");
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
-                    toast(e.toString());
+                    //toast(e.toString());
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
-                    toast(e.toString());
+                    //toast(e.toString());
                 }
 
             }

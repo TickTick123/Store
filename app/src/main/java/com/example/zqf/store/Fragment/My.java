@@ -50,6 +50,7 @@ import rx.functions.Action1;
 
 
 import static android.app.Activity.RESULT_OK;
+import static android.graphics.Color.WHITE;
 import static cn.bmob.v3.Bmob.getApplicationContext;
 
 /**
@@ -91,6 +92,12 @@ public class My extends Fragment {
         but9=view.findViewById(R.id.button9);
         but10=view.findViewById(R.id.button10);
         but11=view.findViewById(R.id.button11);
+
+//        but8.setBackgroundColor(WHITE);
+//        but9.setBackgroundColor(WHITE);
+//        but10.setBackgroundColor(WHITE);
+//        but11.setBackgroundColor(WHITE);
+
         but8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,7 +160,6 @@ public class My extends Fragment {
             @Override
             public void onClick(View v) {
                 builder0=new AlertDialog.Builder(getActivity());
-                builder0.setIcon(R.mipmap.ic_launcher);
                 builder0.setTitle("请选择获取图片方式");
                 final String[] Items={"从相册中选择","使用相机拍摄"};
                 builder0.setItems(Items, new DialogInterface.OnClickListener() {

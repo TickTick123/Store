@@ -62,8 +62,7 @@ public class SumActivity extends AppCompatActivity {
     float sum;
     int from;
     String obj;
-    public static final String ALIPAY_PERSON_2_PAY = "https://QR.ALIPAY.COM/FKX00024RDOFNJRKXDBY8D" +
-            "";
+    public static final String ALIPAY_PERSON_2_PAY = "https://QR.ALIPAY.COM/FKX07882EJAVB11VOGBI45" + "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
